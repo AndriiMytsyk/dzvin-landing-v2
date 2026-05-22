@@ -964,6 +964,173 @@ function HomeScreen() {
 }
 
 // ════════════════════════════════════════════════════════════════
+// WAITLIST MODAL
+// ════════════════════════════════════════════════════════════════
+
+function WaitlistModal({ onClose }) {
+  const [email, setEmail] = React.useState('');
+  const [submitted, setSubmitted] = React.useState(false);
+
+  React.useEffect(() => {
+    const onKey = (e) => { if (e.key === 'Escape') onClose(); };
+    document.addEventListener('keydown', onKey);
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      document.body.style.overflow = '';
+    };
+  }, []);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (email) setSubmitted(true);
+  };
+
+  return (
+    <div
+      onClick={onClose}
+      style={{
+        position: 'fixed', inset: 0, zIndex: 999,
+        background: 'rgba(15,20,22,0.65)',
+        backdropFilter: 'blur(6px)',
+        WebkitBackdropFilter: 'blur(6px)',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        padding: '22px',
+      }}
+    >
+      <div
+        onClick={e => e.stopPropagation()}
+        style={{
+          background: '#fff', borderRadius: 28,
+          padding: '48px 40px 40px',
+          maxWidth: 480, width: '100%',
+          position: 'relative',
+          boxShadow: '0 32px 80px rgba(15,20,22,0.22)',
+          animation: 'modalIn 0.22s cubic-bezier(.22,.68,0,1.2)',
+        }}
+      >
+        {/* close */}
+        <button
+          onClick={onClose}
+          style={{
+            position: 'absolute', top: 18, right: 18,
+            width: 32, height: 32, borderRadius: '50%',
+            border: 'none', cursor: 'pointer',
+            background: T.cream, color: T.muted,
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+          }}
+        >
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+            <path d="M6 6l12 12M18 6L6 18" stroke={T.ink} strokeWidth="2" strokeLinecap="round"/>
+          </svg>
+        </button>
+
+        {!submitted ? (
+          <>
+            {/* Icon */}
+            <div style={{
+              width: 56, height: 56, borderRadius: 16,
+              background: T.tealSoft,
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              marginBottom: 22,
+            }}>
+              {Icon.heart(T.teal, 26)}
+            </div>
+
+            <Eyebrow style={{ marginBottom: 10 }}>Early access</Eyebrow>
+            <h2 style={{
+              fontFamily: T.serif, fontWeight: 600, fontSize: 28,
+              color: T.ink, lineHeight: 1.15, margin: '0 0 10px',
+              letterSpacing: -0.3,
+            }}>We&rsquo;re launching in your area soon.</h2>
+            <p style={{
+              fontFamily: T.sans, fontSize: 15, color: T.body,
+              lineHeight: 1.55, margin: '0 0 28px',
+            }}>
+              Leave your email and you&rsquo;ll be first to know — plus get 30 days free when we launch.
+            </p>
+
+            <form onSubmit={handleSubmit}>
+              <div style={{ marginBottom: 12 }}>
+                <input
+                  type="email"
+                  required
+                  placeholder="your@email.com"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  style={{
+                    width: '100%', padding: '15px 18px',
+                    borderRadius: 14, border: `1.5px solid ${T.hairline}`,
+                    fontFamily: T.sans, fontSize: 16, color: T.ink,
+                    background: T.cream, outline: 'none',
+                    boxSizing: 'border-box',
+                    transition: 'border-color .15s',
+                  }}
+                  onFocus={e => e.target.style.borderColor = T.teal}
+                  onBlur={e => e.target.style.borderColor = T.hairline}
+                />
+              </div>
+              <button type="submit" style={{
+                width: '100%', padding: '16px',
+                borderRadius: 999, border: 'none', cursor: 'pointer',
+                background: T.teal, color: '#fff',
+                fontFamily: T.sans, fontWeight: 700, fontSize: 14,
+                letterSpacing: 1.2, textTransform: 'uppercase',
+                boxShadow: '0 4px 14px rgba(63,191,163,0.32)',
+              }}>
+                Notify me at launch
+              </button>
+            </form>
+
+            <p style={{
+              fontFamily: T.sans, fontSize: 12, color: T.muted,
+              textAlign: 'center', marginTop: 14,
+            }}>
+              No spam. Unsubscribe anytime.
+            </p>
+          </>
+        ) : (
+          <div style={{ textAlign: 'center', padding: '12px 0' }}>
+            <div style={{
+              width: 72, height: 72, borderRadius: '50%',
+              background: T.tealSoft,
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              margin: '0 auto 22px',
+            }}>
+              {Icon.check(T.teal, 32)}
+            </div>
+            <Eyebrow style={{ marginBottom: 10, textAlign: 'center' }}>You&rsquo;re on the list</Eyebrow>
+            <h2 style={{
+              fontFamily: T.serif, fontWeight: 600, fontSize: 26,
+              color: T.ink, lineHeight: 1.2, margin: '0 0 10px',
+            }}>We&rsquo;ll reach out soon.</h2>
+            <p style={{
+              fontFamily: T.sans, fontSize: 15, color: T.body, lineHeight: 1.55, margin: 0,
+            }}>
+              Watch for an email from <strong style={{ color: T.ink }}>hello@dzvin.com</strong> — we&rsquo;ll let you know the moment we land in your area.
+            </p>
+            <button onClick={onClose} style={{
+              marginTop: 28, padding: '13px 32px',
+              borderRadius: 999, border: 'none', cursor: 'pointer',
+              background: T.tealSoft, color: T.tealDeep,
+              fontFamily: T.sans, fontWeight: 700, fontSize: 13,
+              letterSpacing: 1.2, textTransform: 'uppercase',
+            }}>Done</button>
+          </div>
+        )}
+      </div>
+
+      <style>{`
+        @keyframes modalIn {
+          from { opacity: 0; transform: scale(0.94) translateY(12px); }
+          to   { opacity: 1; transform: scale(1) translateY(0); }
+        }
+      `}</style>
+    </div>
+  );
+}
+
+// ════════════════════════════════════════════════════════════════
 // LANDING — LOGO, NAV, HERO, TRUST STRIP, PROBLEM
 // ════════════════════════════════════════════════════════════════
 
@@ -989,7 +1156,7 @@ function DzvinLogo({ color = '#fff', size = 22 }) {
   );
 }
 
-function FloatingNav() {
+function FloatingNav({ openModal }) {
   const [scrolled, setScrolled] = React.useState(false);
   React.useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -997,17 +1164,15 @@ function FloatingNav() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const onLight = scrolled;
-  const fg = onLight ? T.ink : '#fff';
-  const linkColor = onLight ? T.body : 'rgba(255,255,255,0.78)';
+  const fg = scrolled ? T.ink : '#fff';
+  const linkColor = scrolled ? T.body : 'rgba(255,255,255,0.78)';
 
   return (
     <nav style={{
       position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
-      padding: '0 6vw',
-      height: 64,
+      padding: '0 6vw', height: 64,
       display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-      transition: 'background 0.25s, box-shadow 0.25s, backdrop-filter 0.25s',
+      transition: 'background 0.25s, box-shadow 0.25s',
       background: scrolled ? 'rgba(255,255,255,0.88)' : 'transparent',
       backdropFilter: scrolled ? 'blur(14px) saturate(180%)' : 'none',
       WebkitBackdropFilter: scrolled ? 'blur(14px) saturate(180%)' : 'none',
@@ -1023,11 +1188,9 @@ function FloatingNav() {
           }}>{l}</a>
         ))}
       </div>
-      <Btn
-        variant={scrolled ? 'primary' : 'outline'}
-        size="sm"
+      <Btn variant={scrolled ? 'primary' : 'outline'} size="sm"
         style={{ minWidth: 110, transition: 'all 0.2s' }}
-      >
+        onClick={openModal}>
         Sign Up
       </Btn>
     </nav>
@@ -1038,7 +1201,7 @@ function Nav({ scheme = 'dark' }) {
   return null;
 }
 
-function Hero() {
+function Hero({ openModal }) {
   return (
     <section style={{
       position: 'relative', minHeight: '100vh', overflow: 'hidden',
@@ -1089,7 +1252,7 @@ function Hero() {
           A friendly phone call to your mom or dad every morning — and the second they don&rsquo;t answer, we tell you. No apps. No smartphones.
         </p>
         <div className="hero-cta" style={{ display: 'flex', gap: 10, marginTop: 30, flexWrap: 'wrap' }}>
-          <Btn variant="primary" size="lg" style={{ minWidth: 240 }}>
+          <Btn variant="primary" size="lg" style={{ minWidth: 240 }} onClick={openModal}>
             Start 14-day free trial
           </Btn>
           <Btn variant="outline" size="lg" style={{ minWidth: 200 }} onClick={() => document.getElementById('how-it-works').scrollIntoView({ behavior: 'smooth' })}>
@@ -1101,7 +1264,7 @@ function Hero() {
           color: 'rgba(255,255,255,0.65)', lineHeight: 1.6,
         }}>
           No credit card · Cancel anytime<br/>
-          <span style={{ color: T.teal, fontWeight: 700 }}>Already have an account? Sign in</span>
+          <span onClick={openModal} style={{ color: T.teal, fontWeight: 700, cursor: 'pointer' }}>Already have an account? Sign in</span>
         </div>
       </div>
     </section>
@@ -1391,7 +1554,7 @@ function FeaturesSection() {
   );
 }
 
-function PricingCard({ name, price, features, cta, featured }) {
+function PricingCard({ name, price, features, cta, featured, openModal }) {
   return (
     <div style={{
       background: '#fff', borderRadius: 28, overflow: 'hidden',
@@ -1428,13 +1591,13 @@ function PricingCard({ name, price, features, cta, featured }) {
             <span style={{ fontFamily: T.sans, fontSize: 14, color: T.body, lineHeight: 1.4 }}>{f}</span>
           </div>
         ))}
-        <Btn variant={featured ? 'primary' : 'dark'} size="lg" style={{ width: '100%', marginTop: 22 }}>{cta}</Btn>
+        <Btn variant={featured ? 'primary' : 'dark'} size="lg" style={{ width: '100%', marginTop: 22 }} onClick={openModal}>{cta}</Btn>
       </div>
     </div>
   );
 }
 
-function PricingSection() {
+function PricingSection({ openModal }) {
   return (
     <section id="pricing" className="pricing-pad" style={{
       background: T.ink, color: '#fff', padding: '110px 6vw 140px', position: 'relative',
@@ -1455,7 +1618,7 @@ function PricingSection() {
           gap: 22, maxWidth: 880, margin: '0 auto', textAlign: 'left',
         }}>
           <PricingCard
-            name="Standard" price="9.99" featured
+            name="Standard" price="9.99" featured openModal={openModal}
             features={[
               '24/7 automated check-in calls',
               'Flexible daily, weekly, or monthly schedules',
@@ -1466,7 +1629,7 @@ function PricingSection() {
             cta="Start free trial"
           />
           <PricingCard
-            name="Family" price="14.99"
+            name="Family" price="14.99" openModal={openModal}
             features={[
               'Everything in Standard',
               'Up to 4 parents',
@@ -1786,7 +1949,7 @@ function FAQSection() {
 // FINAL CTA + FOOTER
 // ════════════════════════════════════════════════════════════════
 
-function FinalCTA() {
+function FinalCTA({ openModal }) {
   return (
     <section className="final-cta" style={{
       background: T.teal, color: '#fff', padding: '90px 6vw 100px',
@@ -1812,8 +1975,8 @@ function FinalCTA() {
         <div className="hero-cta" style={{
           display: 'flex', gap: 10, justifyContent: 'center', marginTop: 28, flexWrap: 'wrap',
         }}>
-          <Btn variant="dark" size="lg" style={{ minWidth: 240, background: T.ink }}>Start free trial</Btn>
-          <Btn variant="outline" size="lg" style={{ minWidth: 200 }}>Talk to us first</Btn>
+          <Btn variant="dark" size="lg" style={{ minWidth: 240, background: T.ink }} onClick={openModal}>Start free trial</Btn>
+          <Btn variant="outline" size="lg" style={{ minWidth: 200 }} onClick={openModal}>Talk to us first</Btn>
         </div>
       </div>
     </section>
@@ -1885,18 +2048,22 @@ function Footer() {
 // ════════════════════════════════════════════════════════════════
 
 function Landing() {
+  const [modalOpen, setModalOpen] = React.useState(false);
+  const openModal = () => setModalOpen(true);
+  const closeModal = () => setModalOpen(false);
   return (
     <div style={{ background: '#fff' }}>
-      <FloatingNav/>
-      <Hero/>
+      {modalOpen && <WaitlistModal onClose={closeModal}/>}
+      <FloatingNav openModal={openModal}/>
+      <Hero openModal={openModal}/>
       <TrustStrip/>
       <ProblemSection/>
       <HowItWorksSection/>
       <FeaturesSection/>
-      <PricingSection/>
+      <PricingSection openModal={openModal}/>
       <TestimonialsSection/>
       <FAQSection/>
-      <FinalCTA/>
+      <FinalCTA openModal={openModal}/>
       <Footer/>
     </div>
   );
