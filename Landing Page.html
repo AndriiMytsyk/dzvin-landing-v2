@@ -1,0 +1,1909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Dzvin — Daily safety check-in calls for elderly parents</title>
+<meta name="description" content="A daily phone call to your mom or dad. The instant they don't answer, we tell you. No apps. No smartphones. Peace of mind for families.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Nunito:wght@400;500;600;700;800&display=swap">
+
+<style>
+  html, body {
+    margin: 0; padding: 0;
+    font-family: 'Nunito', system-ui, sans-serif;
+    background: #fff;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #1F2A2E;
+  }
+  #root { min-height: 100vh; }
+  * { box-sizing: border-box; }
+  button { font-family: inherit; }
+
+  /* hide horizontal-scroll bar on testimonial row */
+  .ig-row::-webkit-scrollbar { display: none; }
+  .ig-row { scrollbar-width: none; }
+
+  /* ═══ Mobile-first defaults (applied at all sizes, overridden at min-width) ═══ */
+  .nav-links { display: none !important; }
+  .step-row {
+    grid-template-columns: 1fr !important;
+    gap: 28px !important;
+    padding: 28px !important;
+    border-radius: 24px !important;
+  }
+  .step-row > div { order: 1 !important; }
+  .step-row > div:last-child {
+    order: 2 !important;
+    min-height: auto !important;
+    width: 100%;
+  }
+  .step-row .phone-halo { width: 240px !important; height: 240px !important; }
+  .faq-grid { grid-template-columns: 1fr !important; gap: 28px !important; }
+  .footer-grid { grid-template-columns: 1fr !important; gap: 36px !important; }
+  .price-grid { grid-template-columns: 1fr !important; gap: 18px !important; }
+  .price-grid > div { transform: none !important; }
+  .worry-grid { grid-template-columns: 1fr !important; }
+  .feat-grid { grid-template-columns: 1fr !important; }
+  .feat-grid > div { border-right: none !important; border-bottom: 1px solid var(--hairline) !important; }
+  .feat-grid > div:last-child { border-bottom: none !important; }
+  .trust-row { flex-direction: column; align-items: flex-start !important; gap: 24px !important; }
+  .trust-stats { gap: 28px !important; flex-wrap: wrap; }
+  .hero-cta { flex-direction: column; align-items: stretch; }
+  .hero-cta > * { width: 100% !important; min-width: 0 !important; }
+  .quote-grid { grid-template-columns: 1fr !important; }
+  section { padding-left: 22px !important; padding-right: 22px !important; }
+  .hero-inner { padding-left: 22px !important; padding-right: 22px !important; padding-bottom: 56px !important; }
+  nav { padding-left: 22px !important; padding-right: 22px !important; }
+  .section-pad { padding-top: 64px !important; padding-bottom: 64px !important; }
+  .final-cta { padding-top: 64px !important; padding-bottom: 72px !important; }
+  .pricing-pad { padding-top: 64px !important; padding-bottom: 80px !important; }
+
+  /* ═══ Tablet and up ═══ */
+  @media (min-width: 768px) {
+    .nav-links { display: flex !important; }
+    .step-row {
+      grid-template-columns: 1.1fr 1fr !important;
+      gap: 56px !important;
+      padding: 48px !important;
+      border-radius: 32px !important;
+    }
+    .step-row[data-reverse="true"] > div:first-child { order: 2 !important; }
+    .step-row[data-reverse="true"] > div:last-child { order: 1 !important; }
+    .faq-grid { grid-template-columns: 1fr 1.4fr !important; gap: 48px !important; }
+    .footer-grid { grid-template-columns: 1.4fr 1fr 1fr 1fr !important; gap: 48px !important; }
+    .price-grid { grid-template-columns: 1fr 1fr !important; gap: 22px !important; }
+    .price-grid > div:first-child { transform: translateY(-8px) !important; }
+    .worry-grid { grid-template-columns: repeat(3, 1fr) !important; }
+    .feat-grid { grid-template-columns: repeat(2, 1fr) !important; }
+    .feat-grid > div { border-right: 1px solid var(--hairline) !important; border-bottom: 1px solid var(--hairline) !important; }
+    .feat-grid > div:nth-child(2n) { border-right: none !important; }
+    .trust-row { flex-direction: row; align-items: center !important; gap: 36px !important; }
+    .hero-cta { flex-direction: row; align-items: center; }
+    .hero-cta > * { width: auto !important; }
+    .quote-grid { grid-template-columns: repeat(3, 1fr) !important; }
+    section { padding-left: 6vw !important; padding-right: 6vw !important; }
+    .hero-inner { padding-left: 6vw !important; padding-right: 6vw !important; padding-bottom: 80px !important; }
+    nav { padding-left: 6vw !important; padding-right: 6vw !important; }
+    .section-pad { padding-top: 110px !important; padding-bottom: 110px !important; }
+    .final-cta { padding-top: 90px !important; padding-bottom: 100px !important; }
+    .pricing-pad { padding-top: 110px !important; padding-bottom: 140px !important; }
+  }
+
+  /* ═══ Desktop ═══ */
+  @media (min-width: 1024px) {
+    .feat-grid { grid-template-columns: repeat(3, 1fr) !important; }
+    .feat-grid > div:nth-child(2n) { border-right: 1px solid var(--hairline) !important; }
+    .feat-grid > div:nth-child(3n) { border-right: none !important; }
+    .feat-grid > div:nth-last-child(-n+3) { border-bottom: none !important; }
+  }
+
+  :root { --hairline: #EDE9E1; }
+
+  details > summary::-webkit-details-marker { display: none; }
+  details[open] > summary > span:last-child { background: #1F2A2E; color: #fff; }
+  details[open] > summary > span:last-child::after { content: '−'; }
+
+  section { scroll-margin-top: 80px; }
+</style>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div id="root"></div>
+
+<script type="text/babel">
+// ════════════════════════════════════════════════════════════════
+// TOKENS & SHARED ATOMS
+// ════════════════════════════════════════════════════════════════
+
+const T = {
+  teal:       '#3FBFA3',
+  tealDeep:   '#2FA68C',
+  tealSoft:   '#E8F5F1',
+  ink:        '#1F2A2E',
+  body:       '#4D5A5E',
+  muted:      '#8A9598',
+  hairline:   '#EDE9E1',
+  border:     '#E2DCD2',
+  card:       '#FFFFFF',
+  off:        '#F7F4EE',
+  cream:      '#FBF8F2',
+  warn:       '#E07A5F',
+  warnSoft:   '#FBEDE7',
+  ok:         '#3FBFA3',
+  okSoft:     '#E8F5F1',
+  serif:  '"Lora", "Cormorant Garamond", Georgia, serif',
+  sans:   '"Nunito", "Inter", system-ui, sans-serif',
+  r:   16,
+  rL:  20,
+  rXL: 28,
+  shadow: '0 1px 2px rgba(31,42,46,0.04), 0 4px 16px rgba(31,42,46,0.05)',
+  shadowLg: '0 8px 28px rgba(31,42,46,0.10)',
+};
+
+function Eyebrow({ children, color = T.teal, style = {} }) {
+  return (
+    <div style={{
+      fontFamily: T.sans, fontWeight: 800, fontSize: 11,
+      letterSpacing: 1.6, textTransform: 'uppercase',
+      color, ...style,
+    }}>{children}</div>
+  );
+}
+
+function H1({ children, style = {} }) {
+  return (
+    <h1 style={{
+      fontFamily: T.serif, fontWeight: 600, fontSize: 34,
+      lineHeight: 1.1, color: T.ink, margin: 0,
+      letterSpacing: -0.2, textWrap: 'pretty', ...style,
+    }}>{children}</h1>
+  );
+}
+
+function H2({ children, style = {} }) {
+  return (
+    <h2 style={{
+      fontFamily: T.serif, fontWeight: 600, fontSize: 26,
+      lineHeight: 1.15, color: T.ink, margin: 0,
+      letterSpacing: -0.1, textWrap: 'pretty', ...style,
+    }}>{children}</h2>
+  );
+}
+
+function Body({ children, color = T.body, style = {} }) {
+  return (
+    <p style={{
+      fontFamily: T.sans, fontWeight: 400, fontSize: 15,
+      lineHeight: 1.5, color, margin: 0, textWrap: 'pretty', ...style,
+    }}>{children}</p>
+  );
+}
+
+function Btn({ children, variant = 'primary', size = 'md', icon, style = {}, onClick }) {
+  const base = {
+    display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+    gap: 8, fontFamily: T.sans, fontWeight: 700,
+    border: 'none', cursor: 'pointer', borderRadius: 999,
+    letterSpacing: 0.3, transition: 'all .15s', whiteSpace: 'nowrap',
+  };
+  const sizes = {
+    sm: { padding: '10px 18px', fontSize: 13 },
+    md: { padding: '15px 22px', fontSize: 14 },
+    lg: { padding: '18px 28px', fontSize: 15 },
+  };
+  const variants = {
+    primary: { background: T.teal, color: '#fff', boxShadow: '0 4px 14px rgba(63,191,163,0.32)' },
+    ghost:   { background: 'transparent', color: T.ink, border: `1.5px solid ${T.border}` },
+    outline: { background: 'transparent', color: '#fff', border: '1.5px solid rgba(255,255,255,0.6)' },
+    dark:    { background: T.ink, color: '#fff' },
+    soft:    { background: T.tealSoft, color: T.tealDeep },
+  };
+  return (
+    <button onClick={onClick} style={{
+      ...base, ...sizes[size], ...variants[variant], ...style,
+    }}>
+      {icon}
+      <span style={{ textTransform: 'uppercase', letterSpacing: 1.4, fontSize: sizes[size].fontSize - 1 }}>
+        {children}
+      </span>
+    </button>
+  );
+}
+
+function Card({ children, style = {}, pad = 20 }) {
+  return (
+    <div style={{
+      background: T.card, borderRadius: T.rL,
+      padding: pad, border: `1px solid ${T.hairline}`,
+      ...style,
+    }}>{children}</div>
+  );
+}
+
+function Field({ label, value, placeholder, suffix, style = {} }) {
+  return (
+    <label style={{ display: 'block', ...style }}>
+      <div style={{
+        fontFamily: T.sans, fontSize: 11, fontWeight: 700,
+        letterSpacing: 1.4, textTransform: 'uppercase',
+        color: T.muted, marginBottom: 8,
+      }}>{label}</div>
+      <div style={{
+        display: 'flex', alignItems: 'center',
+        background: T.cream, borderRadius: 14,
+        border: `1px solid ${T.hairline}`,
+        padding: '14px 16px', fontFamily: T.sans, fontSize: 16,
+        color: value ? T.ink : T.muted,
+      }}>
+        <span style={{ flex: 1 }}>{value || placeholder}</span>
+        {suffix && <span style={{ color: T.muted, fontSize: 13 }}>{suffix}</span>}
+      </div>
+    </label>
+  );
+}
+
+function Pill({ tone = 'ok', children, icon }) {
+  const tones = {
+    ok:    { bg: T.tealSoft, color: T.tealDeep },
+    warn:  { bg: T.warnSoft, color: T.warn },
+    muted: { bg: '#F1EEE6', color: T.body },
+  }[tone];
+  return (
+    <span style={{
+      display: 'inline-flex', alignItems: 'center', gap: 6,
+      padding: '5px 10px 5px 8px', borderRadius: 999,
+      background: tones.bg, color: tones.color,
+      fontFamily: T.sans, fontWeight: 700, fontSize: 11,
+      letterSpacing: 1.1, textTransform: 'uppercase',
+    }}>
+      {icon}
+      {children}
+    </span>
+  );
+}
+
+function Avatar({ name = 'M', tone = T.teal, size = 44 }) {
+  const init = name.split(' ').map(p => p[0]).slice(0, 2).join('');
+  return (
+    <div style={{
+      width: size, height: size, borderRadius: '50%',
+      background: tone === T.teal ? T.tealSoft : '#F1EEE6',
+      color: tone, display: 'flex', alignItems: 'center', justifyContent: 'center',
+      fontFamily: T.serif, fontWeight: 600, fontSize: size * 0.4,
+    }}>{init}</div>
+  );
+}
+
+const Icon = {
+  phone: (c = T.ink, s = 18) => (
+    <svg width={s} height={s} viewBox="0 0 24 24" fill="none">
+      <path d="M5 4h3l2 5-2.5 1.5a11 11 0 005 5L14 13l5 2v3a2 2 0 01-2 2A14 14 0 013 6a2 2 0 012-2z"
+        stroke={c} strokeWidth="1.6" strokeLinejoin="round" strokeLinecap="round"/>
+    </svg>
+  ),
+  check: (c = '#fff', s = 18) => (
+    <svg width={s} height={s} viewBox="0 0 24 24" fill="none">
+      <path d="M5 12.5l4.5 4.5L19 7" stroke={c} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  ),
+  bell: (c = T.ink, s = 18) => (
+    <svg width={s} height={s} viewBox="0 0 24 24" fill="none">
+      <path d="M6 10a6 6 0 0112 0v4l1.5 3h-15L6 14v-4z" stroke={c} strokeWidth="1.6" strokeLinejoin="round"/>
+      <path d="M10 20a2 2 0 004 0" stroke={c} strokeWidth="1.6" strokeLinecap="round"/>
+    </svg>
+  ),
+  clock: (c = T.ink, s = 18) => (
+    <svg width={s} height={s} viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="12" r="9" stroke={c} strokeWidth="1.6"/>
+      <path d="M12 7v5l3 2" stroke={c} strokeWidth="1.6" strokeLinecap="round"/>
+    </svg>
+  ),
+  sms: (c = T.ink, s = 18) => (
+    <svg width={s} height={s} viewBox="0 0 24 24" fill="none">
+      <path d="M4 6a2 2 0 012-2h12a2 2 0 012 2v9a2 2 0 01-2 2h-8l-4 4v-4H6a2 2 0 01-2-2V6z"
+        stroke={c} strokeWidth="1.6" strokeLinejoin="round"/>
+    </svg>
+  ),
+  mail: (c = T.ink, s = 18) => (
+    <svg width={s} height={s} viewBox="0 0 24 24" fill="none">
+      <rect x="3" y="5" width="18" height="14" rx="2" stroke={c} strokeWidth="1.6"/>
+      <path d="M3.5 6.5L12 13l8.5-6.5" stroke={c} strokeWidth="1.6" strokeLinecap="round"/>
+    </svg>
+  ),
+  user: (c = T.ink, s = 18) => (
+    <svg width={s} height={s} viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="8" r="4" stroke={c} strokeWidth="1.6"/>
+      <path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8" stroke={c} strokeWidth="1.6" strokeLinecap="round"/>
+    </svg>
+  ),
+  plus: (c = T.ink, s = 18) => (
+    <svg width={s} height={s} viewBox="0 0 24 24" fill="none">
+      <path d="M12 5v14M5 12h14" stroke={c} strokeWidth="2" strokeLinecap="round"/>
+    </svg>
+  ),
+  arrow: (c = T.ink, s = 18) => (
+    <svg width={s} height={s} viewBox="0 0 24 24" fill="none">
+      <path d="M5 12h14M13 6l6 6-6 6" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  ),
+  arrowDown: (c = T.ink, s = 14) => (
+    <svg width={s} height={s} viewBox="0 0 24 24" fill="none">
+      <path d="M12 5v14M6 13l6 6 6-6" stroke={c} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  ),
+  chevR: (c = T.muted, s = 14) => (
+    <svg width={s} height={s} viewBox="0 0 24 24" fill="none">
+      <path d="M9 6l6 6-6 6" stroke={c} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  ),
+  chevL: (c = T.ink, s = 18) => (
+    <svg width={s} height={s} viewBox="0 0 24 24" fill="none">
+      <path d="M15 6l-6 6 6 6" stroke={c} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  ),
+  heart: (c = T.ink, s = 18) => (
+    <svg width={s} height={s} viewBox="0 0 24 24" fill="none">
+      <path d="M12 20s-7-4.5-7-10a4 4 0 017-2.6A4 4 0 0119 10c0 5.5-7 10-7 10z"
+        stroke={c} strokeWidth="1.6" strokeLinejoin="round"/>
+    </svg>
+  ),
+  shield: (c = T.ink, s = 18) => (
+    <svg width={s} height={s} viewBox="0 0 24 24" fill="none">
+      <path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z" stroke={c} strokeWidth="1.6" strokeLinejoin="round"/>
+    </svg>
+  ),
+  warning: (c = T.warn, s = 18) => (
+    <svg width={s} height={s} viewBox="0 0 24 24" fill="none">
+      <path d="M12 3l10 18H2L12 3z" stroke={c} strokeWidth="1.6" strokeLinejoin="round"/>
+      <path d="M12 10v5M12 18v.5" stroke={c} strokeWidth="1.8" strokeLinecap="round"/>
+    </svg>
+  ),
+  x: (c = T.ink, s = 18) => (
+    <svg width={s} height={s} viewBox="0 0 24 24" fill="none">
+      <path d="M6 6l12 12M18 6L6 18" stroke={c} strokeWidth="1.8" strokeLinecap="round"/>
+    </svg>
+  ),
+  more: (c = T.ink, s = 18) => (
+    <svg width={s} height={s} viewBox="0 0 24 24" fill="none">
+      <circle cx="6" cy="12" r="1.5" fill={c}/>
+      <circle cx="12" cy="12" r="1.5" fill={c}/>
+      <circle cx="18" cy="12" r="1.5" fill={c}/>
+    </svg>
+  ),
+  calendar: (c = T.ink, s = 18) => (
+    <svg width={s} height={s} viewBox="0 0 24 24" fill="none">
+      <rect x="3.5" y="5" width="17" height="15" rx="2" stroke={c} strokeWidth="1.6"/>
+      <path d="M3.5 10h17M8 3v4M16 3v4" stroke={c} strokeWidth="1.6" strokeLinecap="round"/>
+    </svg>
+  ),
+};
+
+// ════════════════════════════════════════════════════════════════
+// iOS FRAME
+// ════════════════════════════════════════════════════════════════
+
+function IOSStatusBar({ dark = false, time = '9:41' }) {
+  const c = dark ? '#fff' : '#000';
+  return (
+    <div style={{
+      display: 'flex', gap: 154, alignItems: 'center', justifyContent: 'center',
+      padding: '21px 24px 19px', boxSizing: 'border-box',
+      position: 'relative', zIndex: 20, width: '100%',
+    }}>
+      <div style={{ flex: 1, height: 22, display: 'flex', alignItems: 'center', justifyContent: 'center', paddingTop: 1.5 }}>
+        <span style={{
+          fontFamily: '-apple-system, "SF Pro", system-ui', fontWeight: 590,
+          fontSize: 17, lineHeight: '22px', color: c,
+        }}>{time}</span>
+      </div>
+      <div style={{ flex: 1, height: 22, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 7, paddingTop: 1, paddingRight: 1 }}>
+        <svg width="19" height="12" viewBox="0 0 19 12">
+          <rect x="0" y="7.5" width="3.2" height="4.5" rx="0.7" fill={c}/>
+          <rect x="4.8" y="5" width="3.2" height="7" rx="0.7" fill={c}/>
+          <rect x="9.6" y="2.5" width="3.2" height="9.5" rx="0.7" fill={c}/>
+          <rect x="14.4" y="0" width="3.2" height="12" rx="0.7" fill={c}/>
+        </svg>
+        <svg width="17" height="12" viewBox="0 0 17 12">
+          <path d="M8.5 3.2C10.8 3.2 12.9 4.1 14.4 5.6L15.5 4.5C13.7 2.7 11.2 1.5 8.5 1.5C5.8 1.5 3.3 2.7 1.5 4.5L2.6 5.6C4.1 4.1 6.2 3.2 8.5 3.2Z" fill={c}/>
+          <path d="M8.5 6.8C9.9 6.8 11.1 7.3 12 8.2L13.1 7.1C11.8 5.9 10.2 5.1 8.5 5.1C6.8 5.1 5.2 5.9 3.9 7.1L5 8.2C5.9 7.3 7.1 6.8 8.5 6.8Z" fill={c}/>
+          <circle cx="8.5" cy="10.5" r="1.5" fill={c}/>
+        </svg>
+        <svg width="27" height="13" viewBox="0 0 27 13">
+          <rect x="0.5" y="0.5" width="23" height="12" rx="3.5" stroke={c} strokeOpacity="0.35" fill="none"/>
+          <rect x="2" y="2" width="20" height="9" rx="2" fill={c}/>
+          <path d="M25 4.5V8.5C25.8 8.2 26.5 7.2 26.5 6.5C26.5 5.8 25.8 4.8 25 4.5Z" fill={c} fillOpacity="0.4"/>
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+function IOSGlassPill({ children, dark = false, style = {} }) {
+  return (
+    <div style={{
+      height: 44, minWidth: 44, borderRadius: 9999,
+      position: 'relative', overflow: 'hidden',
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      boxShadow: dark
+        ? '0 2px 6px rgba(0,0,0,0.35), 0 6px 16px rgba(0,0,0,0.2)'
+        : '0 1px 3px rgba(0,0,0,0.07), 0 3px 10px rgba(0,0,0,0.06)',
+      ...style,
+    }}>
+      <div style={{
+        position: 'absolute', inset: 0, borderRadius: 9999,
+        backdropFilter: 'blur(12px) saturate(180%)',
+        WebkitBackdropFilter: 'blur(12px) saturate(180%)',
+        background: dark ? 'rgba(120,120,128,0.28)' : 'rgba(255,255,255,0.5)',
+      }} />
+      <div style={{
+        position: 'absolute', inset: 0, borderRadius: 9999,
+        boxShadow: dark
+          ? 'inset 1.5px 1.5px 1px rgba(255,255,255,0.15), inset -1px -1px 1px rgba(255,255,255,0.08)'
+          : 'inset 1.5px 1.5px 1px rgba(255,255,255,0.7), inset -1px -1px 1px rgba(255,255,255,0.4)',
+        border: dark ? '0.5px solid rgba(255,255,255,0.15)' : '0.5px solid rgba(0,0,0,0.06)',
+      }} />
+      <div style={{ position: 'relative', zIndex: 1, display: 'flex', alignItems: 'center', padding: '0 4px' }}>
+        {children}
+      </div>
+    </div>
+  );
+}
+
+function IOSNavBar({ title = 'Title', dark = false, trailingIcon = true }) {
+  const muted = dark ? 'rgba(255,255,255,0.6)' : '#404040';
+  const text = dark ? '#fff' : '#000';
+  const pillIcon = (content) => (
+    <IOSGlassPill dark={dark}>
+      <div style={{ width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        {content}
+      </div>
+    </IOSGlassPill>
+  );
+  return (
+    <div style={{
+      display: 'flex', flexDirection: 'column', gap: 10,
+      paddingTop: 62, paddingBottom: 10, position: 'relative', zIndex: 5,
+    }}>
+      <div style={{
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        padding: '0 16px',
+      }}>
+        {pillIcon(
+          <svg width="12" height="20" viewBox="0 0 12 20" fill="none" style={{ marginLeft: -1 }}>
+            <path d="M10 2L2 10l8 8" stroke={muted} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        )}
+        {trailingIcon && pillIcon(
+          <svg width="22" height="6" viewBox="0 0 22 6">
+            <circle cx="3" cy="3" r="2.5" fill={muted}/>
+            <circle cx="11" cy="3" r="2.5" fill={muted}/>
+            <circle cx="19" cy="3" r="2.5" fill={muted}/>
+          </svg>
+        )}
+      </div>
+      <div style={{
+        padding: '0 16px',
+        fontFamily: '-apple-system, system-ui',
+        fontSize: 34, fontWeight: 700, lineHeight: '41px',
+        color: text, letterSpacing: 0.4,
+      }}>{title}</div>
+    </div>
+  );
+}
+
+function IOSListRow({ title, detail, icon, chevron = true, isLast = false, dark = false }) {
+  const text = dark ? '#fff' : '#000';
+  const sec = dark ? 'rgba(235,235,245,0.6)' : 'rgba(60,60,67,0.6)';
+  const ter = dark ? 'rgba(235,235,245,0.3)' : 'rgba(60,60,67,0.3)';
+  const sep = dark ? 'rgba(84,84,88,0.65)' : 'rgba(60,60,67,0.12)';
+  return (
+    <div style={{
+      display: 'flex', alignItems: 'center', minHeight: 52,
+      padding: '0 16px', position: 'relative',
+      fontFamily: '-apple-system, system-ui', fontSize: 17,
+      letterSpacing: -0.43,
+    }}>
+      {icon && (
+        <div style={{
+          width: 30, height: 30, borderRadius: 7, background: icon,
+          marginRight: 12, flexShrink: 0,
+        }} />
+      )}
+      <div style={{ flex: 1, color: text }}>{title}</div>
+      {detail && <span style={{ color: sec, marginRight: 6 }}>{detail}</span>}
+      {chevron && (
+        <svg width="8" height="14" viewBox="0 0 8 14" style={{ flexShrink: 0 }}>
+          <path d="M1 1l6 6-6 6" stroke={ter} strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      )}
+      {!isLast && (
+        <div style={{
+          position: 'absolute', bottom: 0, right: 0,
+          left: icon ? 58 : 16, height: 0.5, background: sep,
+        }} />
+      )}
+    </div>
+  );
+}
+
+function IOSList({ header, children, dark = false }) {
+  const hc = dark ? 'rgba(235,235,245,0.6)' : 'rgba(60,60,67,0.6)';
+  const bg = dark ? '#1C1C1E' : '#fff';
+  return (
+    <div>
+      {header && (
+        <div style={{
+          fontFamily: '-apple-system, system-ui', fontSize: 13,
+          color: hc, textTransform: 'uppercase',
+          padding: '8px 36px 6px', letterSpacing: -0.08,
+        }}>{header}</div>
+      )}
+      <div style={{
+        background: bg, borderRadius: 26,
+        margin: '0 16px', overflow: 'hidden',
+      }}>{children}</div>
+    </div>
+  );
+}
+
+function IOSDevice({ children, width = 402, height = 874, dark = false, title, keyboard = false }) {
+  return (
+    <div style={{
+      width, height, borderRadius: 48, overflow: 'hidden',
+      position: 'relative', background: dark ? '#000' : '#F2F2F7',
+      boxShadow: '0 40px 80px rgba(0,0,0,0.18), 0 0 0 1px rgba(0,0,0,0.12)',
+      fontFamily: '-apple-system, system-ui, sans-serif',
+      WebkitFontSmoothing: 'antialiased',
+    }}>
+      <div style={{
+        position: 'absolute', top: 11, left: '50%', transform: 'translateX(-50%)',
+        width: 126, height: 37, borderRadius: 24, background: '#000', zIndex: 50,
+      }} />
+      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, zIndex: 10 }}>
+        <IOSStatusBar dark={dark} />
+      </div>
+      <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+        {title !== undefined && <IOSNavBar title={title} dark={dark} />}
+        <div style={{ flex: 1, overflow: 'auto' }}>{children}</div>
+      </div>
+      <div style={{
+        position: 'absolute', bottom: 0, left: 0, right: 0, zIndex: 60,
+        height: 34, display: 'flex', justifyContent: 'center', alignItems: 'flex-end',
+        paddingBottom: 8, pointerEvents: 'none',
+      }}>
+        <div style={{
+          width: 139, height: 5, borderRadius: 100,
+          background: dark ? 'rgba(255,255,255,0.7)' : 'rgba(0,0,0,0.25)',
+        }} />
+      </div>
+    </div>
+  );
+}
+
+// ════════════════════════════════════════════════════════════════
+// SCREEN SHELL (used by app screens inside the phones)
+// ════════════════════════════════════════════════════════════════
+
+function Screen({ children, bg = T.off, style = {} }) {
+  return (
+    <div style={{
+      width: '100%', height: '100%', background: bg,
+      display: 'flex', flexDirection: 'column',
+      fontFamily: T.sans, color: T.ink,
+      overflow: 'hidden', ...style,
+    }}>{children}</div>
+  );
+}
+
+function ScreenHeader({ title, onBack = true, right, dark = false }) {
+  const fg = dark ? '#fff' : T.ink;
+  return (
+    <div style={{
+      paddingTop: 64, padding: '64px 18px 14px',
+      display: 'flex', alignItems: 'center', gap: 12,
+      borderBottom: dark ? 'none' : `1px solid ${T.hairline}`,
+      background: dark ? 'transparent' : 'rgba(255,255,255,0.6)',
+      backdropFilter: 'blur(8px)',
+      position: 'relative', zIndex: 2,
+    }}>
+      {onBack && (
+        <button style={{
+          width: 38, height: 38, borderRadius: 999, border: 'none',
+          background: dark ? 'rgba(255,255,255,0.12)' : T.cream,
+          display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
+        }}>{Icon.chevL(fg, 16)}</button>
+      )}
+      <div style={{
+        flex: 1, fontFamily: T.sans, fontWeight: 700, fontSize: 15,
+        color: fg, letterSpacing: 0.2,
+      }}>{title}</div>
+      {right}
+    </div>
+  );
+}
+
+function StepDots({ step, total = 5 }) {
+  return (
+    <div style={{ display: 'flex', gap: 6 }}>
+      {Array.from({ length: total }).map((_, i) => (
+        <div key={i} style={{
+          width: i === step ? 22 : 6, height: 6, borderRadius: 999,
+          background: i <= step ? T.teal : T.border, transition: 'all .2s',
+        }} />
+      ))}
+    </div>
+  );
+}
+
+// ════════════════════════════════════════════════════════════════
+// SETUP SCREENS (used in How It Works)
+// ════════════════════════════════════════════════════════════════
+
+function Stepper({ value, suffix }) {
+  return (
+    <div style={{
+      display: 'flex', alignItems: 'center', gap: 12,
+      background: T.cream, borderRadius: 999, padding: 4,
+      border: `1px solid ${T.hairline}`,
+    }}>
+      <button style={{
+        width: 32, height: 32, borderRadius: '50%', border: 'none', cursor: 'pointer',
+        background: '#fff', color: T.ink, fontSize: 18, fontWeight: 600,
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+      }}>−</button>
+      <div style={{
+        minWidth: 36, textAlign: 'center',
+        fontFamily: T.sans, fontWeight: 700, fontSize: 15, color: T.ink,
+      }}>{value}{suffix && <span style={{ color: T.muted, fontSize: 11, marginLeft: 2 }}>{suffix}</span>}</div>
+      <button style={{
+        width: 32, height: 32, borderRadius: '50%', border: 'none', cursor: 'pointer',
+        background: T.teal, color: '#fff', fontSize: 18, fontWeight: 600,
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+      }}>+</button>
+    </div>
+  );
+}
+
+function Timeline({ items }) {
+  const toneFor = (t) => ({
+    teal: T.teal, warn: T.warn, warnDeep: '#c46044',
+  }[t] || T.teal);
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+      {items.map((it, i) => (
+        <div key={i} style={{ display: 'flex', gap: 14, alignItems: 'stretch' }}>
+          <div style={{
+            display: 'flex', flexDirection: 'column', alignItems: 'center',
+            paddingTop: 2,
+          }}>
+            <div style={{
+              width: 28, height: 28, borderRadius: '50%', background: toneFor(it.tone),
+              display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+            }}>{it.icon}</div>
+            {i < items.length - 1 && (
+              <div style={{
+                width: 2, flex: 1, minHeight: 18,
+                background: `linear-gradient(${toneFor(it.tone)}, ${toneFor(items[i+1].tone)})`,
+                opacity: 0.35, marginTop: 2, marginBottom: 2,
+              }}/>
+            )}
+          </div>
+          <div style={{ paddingBottom: 14, flex: 1 }}>
+            <div style={{ fontFamily: T.sans, fontSize: 14, fontWeight: 700, color: T.ink }}>{it.label}</div>
+            <div style={{ fontFamily: T.sans, fontSize: 12, color: T.muted, marginTop: 1 }}>{it.t}</div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function Toggle({ on = true }) {
+  return (
+    <div style={{
+      width: 50, height: 30, borderRadius: 999,
+      background: on ? T.teal : T.border,
+      display: 'flex', alignItems: 'center',
+      padding: 3, transition: 'all .15s',
+    }}>
+      <div style={{
+        width: 24, height: 24, borderRadius: '50%', background: '#fff',
+        marginLeft: on ? 20 : 0, transition: 'all .15s',
+        boxShadow: '0 1px 4px rgba(0,0,0,0.15)',
+      }}/>
+    </div>
+  );
+}
+
+function ScheduleScreen() {
+  const days = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
+  const active = [true, true, true, true, true, true, false];
+  return (
+    <Screen bg={T.off}>
+      <ScreenHeader title="Setup · 2 of 5" right={<StepDots step={1}/>}/>
+      <div style={{ flex: 1, padding: '26px 22px', overflow: 'auto' }}>
+        <Eyebrow style={{ marginBottom: 12 }}>Pick a daily check-in schedule</Eyebrow>
+        <H1 style={{ marginBottom: 8 }}>What time should we call?</H1>
+        <Body style={{ marginBottom: 26 }}>
+          Choose a time when your parent is usually awake and comfortable answering the phone.
+        </Body>
+        <Card pad={24} style={{ background: T.cream, marginBottom: 18 }}>
+          <Eyebrow style={{ marginBottom: 12 }}>Daily call time</Eyebrow>
+          <div style={{
+            display: 'flex', alignItems: 'baseline', justifyContent: 'center', gap: 4,
+            fontFamily: T.serif, fontWeight: 600,
+          }}>
+            <span style={{ fontSize: 72, color: T.ink, lineHeight: 1 }}>9</span>
+            <span style={{ fontSize: 72, color: T.muted, lineHeight: 1 }}>:</span>
+            <span style={{ fontSize: 72, color: T.ink, lineHeight: 1 }}>30</span>
+            <span style={{ fontSize: 22, color: T.body, fontFamily: T.sans, fontWeight: 700, marginLeft: 6 }}>AM</span>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'center', gap: 8, marginTop: 14 }}>
+            {['AM', 'PM'].map(p => (
+              <div key={p} style={{
+                padding: '8px 22px', borderRadius: 999,
+                background: p === 'AM' ? T.teal : 'transparent',
+                color: p === 'AM' ? '#fff' : T.body,
+                fontFamily: T.sans, fontWeight: 700, fontSize: 13, letterSpacing: 1.2,
+                border: p === 'AM' ? 'none' : `1px solid ${T.border}`,
+              }}>{p}</div>
+            ))}
+          </div>
+          <div style={{ textAlign: 'center', marginTop: 16, fontFamily: T.sans, fontSize: 12, color: T.muted }}>
+            Mom&rsquo;s local time · Eastern Time
+          </div>
+        </Card>
+        <div style={{ marginBottom: 16 }}>
+          <Eyebrow style={{ marginBottom: 10 }}>Frequency</Eyebrow>
+          <div style={{
+            display: 'flex', gap: 6, background: T.cream,
+            padding: 5, borderRadius: 999, border: `1px solid ${T.hairline}`,
+          }}>
+            {['Daily', 'Weekly', 'Monthly'].map((f, i) => (
+              <div key={f} style={{
+                flex: 1, textAlign: 'center', padding: '11px 0', borderRadius: 999,
+                background: i === 0 ? '#fff' : 'transparent',
+                color: i === 0 ? T.ink : T.body,
+                boxShadow: i === 0 ? '0 1px 3px rgba(0,0,0,0.06)' : 'none',
+                fontFamily: T.sans, fontWeight: 700, fontSize: 13, letterSpacing: 0.8,
+              }}>{f}</div>
+            ))}
+          </div>
+        </div>
+        <div>
+          <Eyebrow style={{ marginBottom: 10 }}>Active days</Eyebrow>
+          <div style={{ display: 'flex', gap: 8 }}>
+            {days.map((d, i) => (
+              <div key={i} style={{
+                flex: 1, aspectRatio: '1', borderRadius: 12,
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                background: active[i] ? T.teal : T.cream,
+                color: active[i] ? '#fff' : T.muted,
+                border: active[i] ? 'none' : `1px solid ${T.hairline}`,
+                fontFamily: T.sans, fontWeight: 800, fontSize: 14,
+              }}>{d}</div>
+            ))}
+          </div>
+        </div>
+        <Btn variant="primary" size="lg" style={{ width: '100%', marginTop: 28 }}
+          icon={Icon.arrow('#fff', 16)}>Continue</Btn>
+      </div>
+    </Screen>
+  );
+}
+
+function EscalationScreen() {
+  return (
+    <Screen bg={T.off}>
+      <ScreenHeader title="Setup · 3 of 5" right={<StepDots step={2}/>}/>
+      <div style={{ flex: 1, padding: '26px 22px', overflow: 'auto' }}>
+        <Eyebrow style={{ marginBottom: 12 }}>If there&rsquo;s no answer</Eyebrow>
+        <H1 style={{ marginBottom: 8 }}>What should we do next?</H1>
+        <Body style={{ marginBottom: 26 }}>
+          Set how we retry and who we notify if your parent doesn&rsquo;t pick up.
+        </Body>
+        <Card pad={0} style={{ marginBottom: 16, overflow: 'hidden' }}>
+          <div style={{ padding: '18px 20px', borderBottom: `1px solid ${T.hairline}` }}>
+            <Eyebrow style={{ marginBottom: 4 }}>Retry</Eyebrow>
+            <Body style={{ fontSize: 13 }}>Try again before notifying you</Body>
+          </div>
+          <div style={{
+            padding: '18px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+            borderBottom: `1px solid ${T.hairline}`,
+          }}>
+            <div>
+              <div style={{ fontFamily: T.sans, fontSize: 15, fontWeight: 600, color: T.ink }}>Attempts</div>
+              <div style={{ fontFamily: T.sans, fontSize: 13, color: T.muted, marginTop: 2 }}>2 more tries</div>
+            </div>
+            <Stepper value={2} />
+          </div>
+          <div style={{ padding: '18px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div>
+              <div style={{ fontFamily: T.sans, fontSize: 15, fontWeight: 600, color: T.ink }}>Wait between</div>
+              <div style={{ fontFamily: T.sans, fontSize: 13, color: T.muted, marginTop: 2 }}>10 minutes</div>
+            </div>
+            <Stepper value={10} suffix="min" />
+          </div>
+        </Card>
+        <Card style={{ marginBottom: 16, background: T.cream, border: 'none' }}>
+          <Eyebrow style={{ marginBottom: 12 }}>Your escalation flow</Eyebrow>
+          <Timeline items={[
+            { t: '9:30 AM', label: 'First call', tone: 'teal', icon: Icon.phone('#fff', 14) },
+            { t: '9:40 AM', label: 'Retry #1',  tone: 'teal', icon: Icon.phone('#fff', 14) },
+            { t: '9:50 AM', label: 'Retry #2',  tone: 'teal', icon: Icon.phone('#fff', 14) },
+            { t: '9:51 AM', label: 'Alert you', tone: 'warn', icon: Icon.bell('#fff', 14) },
+            { t: '10:00 AM', label: 'Notify trusted contacts', tone: 'warnDeep', icon: Icon.warning('#fff', 14) },
+          ]}/>
+        </Card>
+        <Btn variant="primary" size="lg" style={{ width: '100%', marginTop: 14 }}
+          icon={Icon.arrow('#fff', 16)}>Continue</Btn>
+      </div>
+    </Screen>
+  );
+}
+
+// ════════════════════════════════════════════════════════════════
+// APP SCREENS (used in How It Works — step 3 preview)
+// ════════════════════════════════════════════════════════════════
+
+function TabBar({ active = 'home' }) {
+  const tabs = [
+    { id: 'home',     label: 'Today',   icon: Icon.heart },
+    { id: 'history',  label: 'History', icon: Icon.clock },
+    { id: 'mom',      label: 'Mom',     icon: Icon.user },
+    { id: 'settings', label: 'Account', icon: Icon.shield },
+  ];
+  return (
+    <div style={{
+      borderTop: `1px solid ${T.hairline}`,
+      background: 'rgba(255,255,255,0.92)',
+      backdropFilter: 'blur(12px)',
+      padding: '10px 8px 28px',
+      display: 'flex', justifyContent: 'space-around',
+    }}>
+      {tabs.map(t => {
+        const on = t.id === active;
+        return (
+          <div key={t.id} style={{
+            display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4,
+            padding: '6px 12px',
+          }}>
+            {t.icon(on ? T.teal : T.muted, 22)}
+            <div style={{
+              fontFamily: T.sans, fontSize: 10, fontWeight: 700,
+              letterSpacing: 0.8, color: on ? T.teal : T.muted, textTransform: 'uppercase',
+            }}>{t.label}</div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function HomeScreen() {
+  return (
+    <Screen bg={T.off}>
+      <div style={{
+        paddingTop: 64, padding: '64px 22px 16px',
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        background: T.off,
+      }}>
+        <div>
+          <div style={{
+            fontFamily: T.sans, fontSize: 12, fontWeight: 700,
+            color: T.muted, letterSpacing: 1.2, textTransform: 'uppercase',
+          }}>Tuesday · May 22</div>
+          <div style={{
+            fontFamily: T.serif, fontSize: 24, fontWeight: 600,
+            color: T.ink, marginTop: 2, letterSpacing: -0.2,
+          }}>Hi, Anna</div>
+        </div>
+        <button style={{
+          width: 42, height: 42, borderRadius: '50%',
+          background: T.card, border: `1px solid ${T.hairline}`,
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          cursor: 'pointer', position: 'relative',
+        }}>
+          {Icon.bell(T.ink, 18)}
+          <div style={{
+            position: 'absolute', top: 8, right: 9, width: 8, height: 8,
+            borderRadius: '50%', background: T.warn, border: '2px solid #fff',
+          }}/>
+        </button>
+      </div>
+      <div style={{ flex: 1, overflow: 'auto', padding: '6px 22px 24px' }}>
+        <div style={{
+          background: T.teal, borderRadius: 24, padding: 22,
+          color: '#fff', position: 'relative', overflow: 'hidden', marginBottom: 18,
+        }}>
+          <div style={{ position: 'absolute', top: -40, right: -40, width: 160, height: 160, borderRadius: '50%', background: 'rgba(255,255,255,0.08)' }}/>
+          <div style={{ position: 'absolute', top: -10, right: -10, width: 100, height: 100, borderRadius: '50%', background: 'rgba(255,255,255,0.06)' }}/>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 14, position: 'relative' }}>
+            <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#fff', boxShadow: '0 0 0 4px rgba(255,255,255,0.25)' }}/>
+            <div style={{ fontFamily: T.sans, fontSize: 11, fontWeight: 800, letterSpacing: 1.6, textTransform: 'uppercase' }}>Today&rsquo;s check-in · 9:30 AM</div>
+          </div>
+          <div style={{ fontFamily: T.serif, fontSize: 28, fontWeight: 600, lineHeight: 1.15, letterSpacing: -0.2, marginBottom: 6, position: 'relative' }}>
+            Mom answered in 6 seconds.
+          </div>
+          <div style={{ fontFamily: T.sans, fontSize: 14, opacity: 0.85, position: 'relative', marginBottom: 18 }}>
+            She picked up on the first ring. All good — back tomorrow morning.
+          </div>
+          <div style={{ display: 'flex', gap: 8, position: 'relative', paddingTop: 14, borderTop: '1px solid rgba(255,255,255,0.2)' }}>
+            {[['Called', '9:30 AM'], ['Answered', '9:30 AM'], ['Duration', '0:42']].map(([l, v]) => (
+              <div key={l} style={{ flex: 1 }}>
+                <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: 1.4, opacity: 0.7, textTransform: 'uppercase' }}>{l}</div>
+                <div style={{ fontFamily: T.serif, fontSize: 18, fontWeight: 600, marginTop: 2 }}>{v}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div style={{ fontFamily: T.sans, fontSize: 11, fontWeight: 800, color: T.muted, letterSpacing: 1.6, textTransform: 'uppercase', margin: '10px 4px 10px' }}>Who we&rsquo;re watching over</div>
+        <Card pad={18} style={{ marginBottom: 16, display: 'flex', alignItems: 'center', gap: 14 }}>
+          <Avatar name="Mom" size={52}/>
+          <div style={{ flex: 1 }}>
+            <div style={{ fontFamily: T.sans, fontWeight: 700, fontSize: 16, color: T.ink }}>Mom · Halyna</div>
+            <div style={{ fontFamily: T.sans, fontSize: 13, color: T.body, marginTop: 2 }}>Daily · 9:30 AM ET</div>
+            <div style={{ display: 'flex', gap: 6, marginTop: 8 }}>
+              <Pill tone="ok" icon={<div style={{ width: 6, height: 6, borderRadius: '50%', background: T.tealDeep }}/>}>Active</Pill>
+              <Pill tone="muted">12-day streak</Pill>
+            </div>
+          </div>
+          {Icon.chevR(T.muted, 14)}
+        </Card>
+      </div>
+      <TabBar active="home"/>
+    </Screen>
+  );
+}
+
+// ════════════════════════════════════════════════════════════════
+// LANDING — LOGO, NAV, HERO, TRUST STRIP, PROBLEM
+// ════════════════════════════════════════════════════════════════
+
+function DzvinLogo({ color = '#fff', size = 22 }) {
+  return (
+    <div style={{
+      display: 'inline-flex', alignItems: 'flex-end', gap: 2,
+      fontFamily: T.serif, fontWeight: 500, fontSize: size,
+      letterSpacing: size * 0.18, color, lineHeight: 1,
+      position: 'relative',
+    }}>
+      <span>DZVIN</span>
+      <svg width={size * 1.2} height={size * 1.4}
+        viewBox="0 0 28 32"
+        style={{ position: 'absolute', right: -size * 0.5, top: -size * 0.6 }}>
+        <path
+          d="M4 14 C 4 8, 10 5, 13.5 9 C 17 5, 23 8, 23 14 C 23 19, 14 26, 13.5 26 C 13 26, 4 19, 4 14 Z"
+          fill="none" stroke={color} strokeWidth="1.4"
+          strokeLinejoin="round" strokeLinecap="round"
+        />
+      </svg>
+    </div>
+  );
+}
+
+function FloatingNav() {
+  const [scrolled, setScrolled] = React.useState(false);
+  React.useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  const onLight = scrolled;
+  const fg = onLight ? T.ink : '#fff';
+  const linkColor = onLight ? T.body : 'rgba(255,255,255,0.78)';
+
+  return (
+    <nav style={{
+      position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
+      padding: '0 6vw',
+      height: 64,
+      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+      transition: 'background 0.25s, box-shadow 0.25s, backdrop-filter 0.25s',
+      background: scrolled ? 'rgba(255,255,255,0.88)' : 'transparent',
+      backdropFilter: scrolled ? 'blur(14px) saturate(180%)' : 'none',
+      WebkitBackdropFilter: scrolled ? 'blur(14px) saturate(180%)' : 'none',
+      boxShadow: scrolled ? '0 1px 0 rgba(31,42,46,0.08)' : 'none',
+    }}>
+      <DzvinLogo color={fg} size={22}/>
+      <div className="nav-links" style={{ display: 'flex', gap: 32, alignItems: 'center' }}>
+        {['How it works', 'Pricing', 'Stories', 'FAQ'].map(l => (
+          <a key={l} href={`#${l.toLowerCase().replace(/\s/g, '-')}`} style={{
+            fontFamily: T.sans, fontSize: 13, fontWeight: 600,
+            color: linkColor, textDecoration: 'none', letterSpacing: 0.3,
+            transition: 'color 0.2s',
+          }}>{l}</a>
+        ))}
+      </div>
+      <Btn
+        variant={scrolled ? 'primary' : 'outline'}
+        size="sm"
+        style={{ minWidth: 110, transition: 'all 0.2s' }}
+      >
+        Sign Up
+      </Btn>
+    </nav>
+  );
+}
+
+function Nav({ scheme = 'dark' }) {
+  return null;
+}
+
+function Hero() {
+  return (
+    <section style={{
+      position: 'relative', minHeight: '100vh', overflow: 'hidden',
+      background: '#0a0e10', color: '#fff', display: 'flex', alignItems: 'flex-end',
+    }}>
+      <div style={{
+        position: 'absolute', inset: 0,
+        background: `
+          linear-gradient(135deg, rgba(63,191,163,0.10) 0%, rgba(31,42,46,0.6) 50%, rgba(10,14,16,1) 100%),
+          url('https://images.unsplash.com/photo-1581579438747-104c53e7feca?w=1400&q=80&auto=format&fit=crop'),
+          url('https://images.unsplash.com/photo-1566616213894-2d4e1baee5d8?w=1400&q=80&auto=format&fit=crop'),
+          #1a2226
+        `,
+        backgroundSize: 'cover, cover, cover',
+        backgroundPosition: 'center, center 30%, center 30%',
+        filter: 'brightness(0.92) contrast(1.05) saturate(0.95)',
+      }}/>
+      <div style={{
+        position: 'absolute', inset: 0,
+        background: `
+          linear-gradient(180deg, rgba(10,14,16,0.55) 0%, rgba(10,14,16,0.05) 30%, rgba(10,14,16,0.65) 70%, rgba(10,14,16,0.95) 100%),
+          linear-gradient(95deg, rgba(10,14,16,0.55) 0%, rgba(10,14,16,0.0) 55%)
+        `,
+      }}/>
+      <Nav scheme="dark"/>
+      <div className="hero-inner" style={{
+        position: 'relative', zIndex: 2,
+        padding: '0 6vw 80px',
+        width: '100%', maxWidth: 1400, margin: '0 auto',
+      }}>
+        <Eyebrow color={T.teal} style={{ marginBottom: 18, fontSize: 11 }}>
+          Peace of mind, daily
+        </Eyebrow>
+        <h1 style={{
+          fontFamily: T.serif, fontWeight: 600,
+          fontSize: 'clamp(34px, 6vw, 78px)',
+          lineHeight: 1.03, letterSpacing: -0.6,
+          color: '#fff', margin: 0,
+          textWrap: 'balance', maxWidth: 880,
+        }}>
+          Service for daily safety check calls for elderly parents.
+        </h1>
+        <p style={{
+          fontFamily: T.sans, fontSize: 'clamp(15px, 1.4vw, 19px)',
+          color: 'rgba(255,255,255,0.82)', lineHeight: 1.5,
+          maxWidth: 540, marginTop: 18, marginBottom: 0,
+        }}>
+          A friendly phone call to your mom or dad every morning — and the second they don&rsquo;t answer, we tell you. No apps. No smartphones.
+        </p>
+        <div className="hero-cta" style={{ display: 'flex', gap: 10, marginTop: 30, flexWrap: 'wrap' }}>
+          <Btn variant="primary" size="lg" style={{ minWidth: 240 }}>
+            Start 14-day free trial
+          </Btn>
+          <Btn variant="outline" size="lg" style={{ minWidth: 200 }} onClick={() => document.getElementById('how-it-works').scrollIntoView({ behavior: 'smooth' })}>
+            How it works
+          </Btn>
+        </div>
+        <div style={{
+          marginTop: 22, fontFamily: T.sans, fontSize: 13,
+          color: 'rgba(255,255,255,0.65)', lineHeight: 1.6,
+        }}>
+          No credit card · Cancel anytime<br/>
+          <span style={{ color: T.teal, fontWeight: 700 }}>Already have an account? Sign in</span>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function TrustStrip() {
+  const stats = [
+    { n: '8,400+', l: 'families using Dzvin' },
+    { n: '99.8%',  l: 'call delivery uptime' },
+    { n: '< 60s',  l: 'average missed-call alert' },
+    { n: '24/7',   l: 'monitored escalation' },
+  ];
+  return (
+    <section style={{
+      background: T.cream, borderBottom: `1px solid ${T.hairline}`,
+      padding: '36px 6vw',
+    }}>
+      <div className="trust-row" style={{
+        maxWidth: 1400, margin: '0 auto',
+        display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+        gap: 36, flexWrap: 'wrap',
+      }}>
+        <div style={{ flex: '1 1 220px', minWidth: 200 }}>
+          <Eyebrow color={T.muted} style={{ fontSize: 10, marginBottom: 6 }}>Trusted across</Eyebrow>
+          <div style={{ fontFamily: T.serif, fontSize: 18, color: T.ink, fontWeight: 600 }}>
+            United States &middot; Canada &middot; Europe
+          </div>
+        </div>
+        <div className="trust-stats" style={{ display: 'flex', gap: 'clamp(24px, 4vw, 56px)', flexWrap: 'wrap' }}>
+          {stats.map((s, i) => (
+            <div key={i}>
+              <div style={{ fontFamily: T.serif, fontWeight: 600, fontSize: 28, color: T.ink, letterSpacing: -0.3 }}>{s.n}</div>
+              <div style={{ fontFamily: T.sans, fontSize: 12, color: T.muted, letterSpacing: 0.4, marginTop: 2 }}>{s.l}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ProblemSection() {
+  const worries = [
+    { eyebrow: 'The 7 AM worry', t: '"Did Mom get up okay?"',
+      c: 'You can\'t text her — she doesn\'t reply that way. You can call every morning, but life happens. And then the guilt comes.' },
+    { eyebrow: 'The silent days', t: '"It\'s been three days."',
+      c: 'She lives alone. A small fall, a missed pill, even just a flat phone — by the time you\'d notice, it could already be too late.' },
+    { eyebrow: 'The hidden hour', t: '"Is she just sleeping in?"',
+      c: 'A missed call is a question with no answer. You need someone — or something — to take the first step for you.' },
+  ];
+  return (
+    <section className="section-pad" style={{ background: '#fff', padding: '110px 6vw' }}>
+      <div style={{ maxWidth: 1100, margin: '0 auto' }}>
+        <Eyebrow color={T.teal} style={{ marginBottom: 16 }}>Why families choose Dzvin</Eyebrow>
+        <h2 style={{
+          fontFamily: T.serif, fontSize: 'clamp(28px, 4vw, 52px)',
+          fontWeight: 600, color: T.ink, lineHeight: 1.1,
+          letterSpacing: -0.4, margin: 0, maxWidth: 820, textWrap: 'balance',
+        }}>
+          You shouldn&rsquo;t need to call every morning to know they&rsquo;re okay.
+        </h2>
+        <p style={{
+          fontFamily: T.sans, fontSize: 17, color: T.body,
+          maxWidth: 640, marginTop: 18, lineHeight: 1.55,
+        }}>
+          Dzvin takes the daily check-in off your shoulders — gently, reliably, without ever making your parent feel monitored.
+        </p>
+        <div className="worry-grid" style={{
+          display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)',
+          gap: 16, marginTop: 48,
+        }}>
+          {worries.map((w, i) => (
+            <div key={i} style={{
+              padding: 28, borderRadius: 20,
+              background: T.cream, border: `1px solid ${T.hairline}`,
+            }}>
+              <Eyebrow style={{ marginBottom: 12 }}>{w.eyebrow}</Eyebrow>
+              <div style={{
+                fontFamily: T.serif, fontSize: 24, fontWeight: 600,
+                color: T.ink, lineHeight: 1.2, marginBottom: 10, letterSpacing: -0.2,
+              }}>{w.t}</div>
+              <Body style={{ fontSize: 15 }}>{w.c}</Body>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ════════════════════════════════════════════════════════════════
+// HOW IT WORKS, FEATURES, PRICING
+// ════════════════════════════════════════════════════════════════
+
+function MiniPhone({ children, dark = false, scale = 0.72 }) {
+  const W = 402, H = 874;
+  return (
+    <div style={{ width: W * scale, height: H * scale, position: 'relative' }}>
+      <div style={{
+        width: W, height: H,
+        transform: `scale(${scale})`, transformOrigin: 'top left',
+        position: 'absolute', top: 0, left: 0,
+      }}>
+        <IOSDevice width={W} height={H} dark={dark}>
+          {children}
+        </IOSDevice>
+      </div>
+    </div>
+  );
+}
+
+function StepRow({ num, eyebrow, title, body, bullets, screen, reverse }) {
+  return (
+    <div className="step-row" style={{
+      display: 'grid', gridTemplateColumns: '1.1fr 1fr',
+      gap: 'clamp(24px, 5vw, 80px)', alignItems: 'center',
+      background: '#fff', borderRadius: 32, padding: 'clamp(24px, 4vw, 56px)',
+      border: `1px solid ${T.hairline}`,
+      boxShadow: '0 1px 2px rgba(31,42,46,0.03), 0 12px 40px rgba(31,42,46,0.04)',
+    }} data-reverse={reverse ? 'true' : 'false'}>
+      <div style={{ minWidth: 0 }}>
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: 12, marginBottom: 12 }}>
+          <div style={{
+            fontFamily: T.serif, fontSize: 38, fontWeight: 600,
+            color: T.teal, letterSpacing: -0.5, lineHeight: 1,
+          }}>{num}</div>
+          <Eyebrow>{eyebrow}</Eyebrow>
+        </div>
+        <h3 style={{
+          fontFamily: T.serif, fontSize: 'clamp(22px, 2.6vw, 36px)',
+          fontWeight: 600, color: T.ink, lineHeight: 1.1,
+          letterSpacing: -0.3, margin: 0, marginBottom: 12, textWrap: 'balance',
+        }}>{title}</h3>
+        <p style={{
+          fontFamily: T.sans, fontSize: 15, color: T.body,
+          lineHeight: 1.55, marginTop: 0, marginBottom: 20,
+        }}>{body}</p>
+        <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 12 }}>
+          {bullets.map((b, i) => (
+            <li key={i} style={{ display: 'flex', gap: 12, alignItems: 'flex-start', fontFamily: T.sans, fontSize: 15, color: T.ink }}>
+              <span style={{
+                width: 22, height: 22, borderRadius: '50%',
+                background: T.tealSoft, color: T.tealDeep,
+                display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                flexShrink: 0, marginTop: 1,
+              }}>{Icon.check(T.tealDeep, 12)}</span>
+              {b}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div style={{
+        position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center',
+        minHeight: 560,
+      }}>
+        <div className="phone-halo" style={{
+          position: 'absolute',
+          width: 320, height: 320, borderRadius: '50%',
+          background: `radial-gradient(circle, ${T.tealSoft} 0%, transparent 70%)`,
+          filter: 'blur(20px)', zIndex: 0,
+        }}/>
+        <div style={{ position: 'relative', zIndex: 1 }}>
+          <MiniPhone>{screen}</MiniPhone>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function HowItWorksSection() {
+  const steps = [
+    {
+      num: '01', eyebrow: 'Step one',
+      title: 'Pick a daily check-in schedule',
+      body: 'Choose what time we call your parent and which days of the week. We respect their routine — and yours.',
+      bullets: [
+        'Choose call time in their local timezone',
+        'Daily, weekdays only, weekly, or custom',
+        'Pause anytime — vacations, hospital, holidays',
+      ],
+      screen: <ScheduleScreen/>,
+      reverse: false,
+    },
+    {
+      num: '02', eyebrow: 'Step two',
+      title: 'Decide what happens if there’s no answer',
+      body: 'Set the retry pattern and escalation chain. You’re always notified first — never blindsided.',
+      bullets: [
+        'Up to 3 retry attempts at your interval',
+        'You receive the first alert — every time',
+        'Trusted contacts notified after a delay',
+      ],
+      screen: <EscalationScreen/>,
+      reverse: true,
+    },
+    {
+      num: '03', eyebrow: 'Step three',
+      title: 'Stay informed — your way',
+      body: 'Get a quick “all good” each morning and an immediate alert if something’s off. SMS, phone, email — whatever you want.',
+      bullets: [
+        'Daily summary that takes 5 seconds to read',
+        'Multi-channel alerts in parallel — never missed',
+        'Full call history with timestamps & durations',
+      ],
+      screen: <HomeScreen/>,
+      reverse: false,
+    },
+  ];
+
+  return (
+    <section id="how-it-works" className="section-pad" style={{
+      background: T.cream, padding: '110px 6vw 120px', position: 'relative',
+    }}>
+      <div style={{ maxWidth: 1280, margin: '0 auto' }}>
+        <div style={{ maxWidth: 820, marginBottom: 40 }}>
+          <Eyebrow style={{ marginBottom: 14 }}>How it works</Eyebrow>
+          <h2 style={{
+            fontFamily: T.serif, fontSize: 'clamp(30px, 4.5vw, 56px)',
+            fontWeight: 600, color: T.ink, lineHeight: 1.05,
+            letterSpacing: -0.5, margin: 0, textWrap: 'balance',
+          }}>Three small steps. One big relief.</h2>
+          <p style={{
+            fontFamily: T.sans, fontSize: 16, color: T.body,
+            marginTop: 16, lineHeight: 1.55, maxWidth: 580,
+          }}>
+            Setup takes about two minutes. You can change every detail later — anytime, from any device.
+          </p>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
+          {steps.map((s, i) => <StepRow key={i} {...s}/>)}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function FeaturesSection() {
+  const features = [
+    { icon: Icon.phone,  title: 'Real human voice',       body: 'A warm, natural call your parent will actually pick up. Not a robot.' },
+    { icon: Icon.clock,  title: 'Flexible scheduling',    body: 'Daily, weekdays, weekly, or monthly — set in their timezone, not yours.' },
+    { icon: Icon.bell,   title: 'Instant missed alerts',  body: 'You hear within 60 seconds of a missed call. Always you first.' },
+    { icon: Icon.shield, title: 'Smart escalation chain', body: 'Retry, then you, then siblings, then the family doctor — you decide the order.' },
+    { icon: Icon.sms,    title: 'Multi-channel alerts',   body: 'SMS, phone call, email — in parallel, redundantly. Never a missed alert.' },
+    { icon: Icon.heart,  title: 'No app on their phone',  body: 'Works on any phone — landline, flip phone, smartphone. No setup needed.' },
+  ];
+  return (
+    <section className="section-pad" style={{ background: '#fff', padding: '110px 6vw' }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+        <div style={{
+          display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between',
+          gap: 24, flexWrap: 'wrap', marginBottom: 40,
+        }}>
+          <div style={{ maxWidth: 640 }}>
+            <Eyebrow style={{ marginBottom: 12 }}>What&rsquo;s inside</Eyebrow>
+            <h2 style={{
+              fontFamily: T.serif, fontSize: 'clamp(28px, 4vw, 48px)',
+              fontWeight: 600, color: T.ink, lineHeight: 1.1,
+              letterSpacing: -0.4, margin: 0, textWrap: 'balance',
+            }}>Built around how families actually live.</h2>
+          </div>
+          <Body style={{ maxWidth: 360, fontSize: 15 }}>
+            Every feature exists because a family told us they needed it. Nothing more.
+          </Body>
+        </div>
+        <div className="feat-grid" style={{
+          display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)',
+          gap: 0, border: `1px solid ${T.hairline}`, borderRadius: 24,
+          overflow: 'hidden', background: T.cream,
+        }}>
+          {features.map((f, i) => (
+            <div key={i} style={{ padding: 28, background: '#fff' }}>
+              <div style={{
+                width: 44, height: 44, borderRadius: 12, background: T.tealSoft,
+                display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 16,
+              }}>{f.icon(T.tealDeep, 20)}</div>
+              <div style={{
+                fontFamily: T.serif, fontSize: 19, fontWeight: 600,
+                color: T.ink, marginBottom: 6, letterSpacing: -0.2,
+              }}>{f.title}</div>
+              <Body style={{ fontSize: 14 }}>{f.body}</Body>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function PricingCard({ name, price, features, cta, featured }) {
+  return (
+    <div style={{
+      background: '#fff', borderRadius: 28, overflow: 'hidden',
+      boxShadow: featured
+        ? '0 20px 50px rgba(63,191,163,0.25), 0 0 0 1px rgba(255,255,255,0.05)'
+        : '0 10px 30px rgba(0,0,0,0.20)',
+      transform: featured ? 'translateY(-8px)' : 'none',
+    }}>
+      <div style={{
+        background: featured ? T.teal : T.cream,
+        color: featured ? '#fff' : T.ink,
+        padding: '36px 28px 32px', textAlign: 'center',
+      }}>
+        <div style={{ fontFamily: T.serif, fontSize: 28, fontWeight: 600, marginBottom: 8 }}>{name}</div>
+        <div style={{ width: 32, height: 1, background: featured ? 'rgba(255,255,255,0.5)' : T.border, margin: '0 auto 18px' }}/>
+        <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'center', fontFamily: T.serif, fontWeight: 600 }}>
+          <span style={{ fontSize: 28, alignSelf: 'flex-start', marginTop: 12 }}>$</span>
+          <span style={{ fontSize: 72, lineHeight: 1, letterSpacing: -1 }}>{price}</span>
+          <span style={{ fontFamily: T.sans, fontSize: 14, fontWeight: 600, marginLeft: 6, opacity: featured ? 0.85 : 0.55 }}>/mo</span>
+        </div>
+      </div>
+      <div style={{ padding: '8px 28px 28px' }}>
+        {features.map((f, i) => (
+          <div key={i} style={{
+            display: 'flex', gap: 12, alignItems: 'center',
+            padding: '14px 0',
+            borderBottom: i < features.length - 1 ? `1px solid ${T.hairline}` : 'none',
+          }}>
+            <span style={{
+              width: 22, height: 22, borderRadius: '50%',
+              background: T.tealSoft, color: T.tealDeep,
+              display: 'inline-flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+            }}>{Icon.check(T.tealDeep, 12)}</span>
+            <span style={{ fontFamily: T.sans, fontSize: 14, color: T.body, lineHeight: 1.4 }}>{f}</span>
+          </div>
+        ))}
+        <Btn variant={featured ? 'primary' : 'dark'} size="lg" style={{ width: '100%', marginTop: 22 }}>{cta}</Btn>
+      </div>
+    </div>
+  );
+}
+
+function PricingSection() {
+  return (
+    <section id="pricing" className="pricing-pad" style={{
+      background: T.ink, color: '#fff', padding: '110px 6vw 140px', position: 'relative',
+    }}>
+      <div style={{ maxWidth: 1100, margin: '0 auto', textAlign: 'center' }}>
+        <Eyebrow color={T.teal} style={{ marginBottom: 14 }}>Pricing</Eyebrow>
+        <h2 style={{
+          fontFamily: T.serif, fontSize: 'clamp(28px, 4.5vw, 56px)',
+          fontWeight: 600, color: '#fff', lineHeight: 1.08,
+          letterSpacing: -0.4, margin: 0, textWrap: 'balance',
+        }}>One small price for one big peace of mind.</h2>
+        <p style={{
+          fontFamily: T.sans, fontSize: 16, color: 'rgba(255,255,255,0.7)',
+          marginTop: 14, marginBottom: 36,
+        }}>Cancel anytime. 14-day free trial. No setup fees.</p>
+        <div className="price-grid" style={{
+          display: 'grid', gridTemplateColumns: '1fr 1fr',
+          gap: 22, maxWidth: 880, margin: '0 auto', textAlign: 'left',
+        }}>
+          <PricingCard
+            name="Standard" price="9.99" featured
+            features={[
+              '24/7 automated check-in calls',
+              'Flexible daily, weekly, or monthly schedules',
+              'Instant alerts for missed responses',
+              'SMS, phone call, and email notifications',
+              'Simple setup with no apps required',
+            ]}
+            cta="Start free trial"
+          />
+          <PricingCard
+            name="Family" price="14.99"
+            features={[
+              'Everything in Standard',
+              'Up to 4 parents',
+              'Up to 5 trusted contacts',
+              'Custom call scripts (e.g. medication reminder)',
+              'Priority phone support',
+            ]}
+            cta="Start free trial"
+          />
+        </div>
+        <div style={{ marginTop: 36, fontFamily: T.sans, fontSize: 13, color: 'rgba(255,255,255,0.55)' }}>
+          Prices in USD. EU and CA pricing localized at checkout.
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ════════════════════════════════════════════════════════════════
+// TESTIMONIALS (Instagram DM mockups)
+// ════════════════════════════════════════════════════════════════
+
+function IGScreenshot({ handle = 'linda.st', name = 'Linda', avatar, messages = [], time = '7:36 PM', isVerified = false }) {
+  return (
+    <div style={{
+      width: 340, height: 580,
+      overflow: 'hidden', background: '#fff',
+      boxShadow: '0 20px 50px rgba(31,42,46,0.18), 0 0 0 1px rgba(31,42,46,0.08)',
+      fontFamily: '-apple-system, "SF Pro Display", system-ui, sans-serif',
+      position: 'relative',
+      border: '8px solid #16191b',
+      borderRadius: 46,
+    }}>
+      {/* Status bar */}
+      <div style={{
+        height: 46, display: 'flex', justifyContent: 'space-between',
+        alignItems: 'center', padding: '14px 24px 0', position: 'relative',
+      }}>
+        <div style={{
+          position: 'absolute', top: 8, left: '50%', transform: 'translateX(-50%)',
+          width: 96, height: 28, borderRadius: 18, background: '#000',
+        }}/>
+        <span style={{ fontSize: 14, fontWeight: 600, color: '#000' }}>9:41</span>
+        <span style={{ display: 'flex', gap: 5, alignItems: 'center' }}>
+          <svg width="14" height="9"><rect x="0" y="5" width="2.4" height="4" rx="0.5" fill="#000"/><rect x="3.6" y="3" width="2.4" height="6" rx="0.5" fill="#000"/><rect x="7.2" y="1" width="2.4" height="8" rx="0.5" fill="#000"/><rect x="10.8" y="0" width="2.4" height="9" rx="0.5" fill="#000"/></svg>
+          <svg width="13" height="9" viewBox="0 0 13 9"><path d="M6.5 2.5c1.6 0 3.1.6 4.2 1.7l.9-.9C10.3 2 8.5 1.2 6.5 1.2S2.7 2 1.4 3.3l.9.9c1.1-1.1 2.6-1.7 4.2-1.7zm0 2.7c1 0 1.9.4 2.6 1l.9-.9c-1-1-2.2-1.5-3.5-1.5S4 4.3 3 5.3l.9.9c.7-.6 1.6-1 2.6-1z" fill="#000"/><circle cx="6.5" cy="8" r="1" fill="#000"/></svg>
+          <svg width="22" height="10" viewBox="0 0 22 10"><rect x="0.5" y="0.5" width="19" height="9" rx="2.5" stroke="rgba(0,0,0,0.35)" fill="none"/><rect x="2" y="2" width="16" height="6" rx="1.5" fill="#000"/></svg>
+        </span>
+      </div>
+
+      {/* DM header */}
+      <div style={{
+        padding: '8px 14px 12px', display: 'flex', alignItems: 'center', gap: 12,
+        borderBottom: '0.5px solid rgba(0,0,0,0.08)',
+      }}>
+        <svg width="11" height="18" viewBox="0 0 11 18"><path d="M9 1L2 9l7 8" stroke="#000" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/></svg>
+        <div style={{
+          width: 32, height: 32, borderRadius: '50%', overflow: 'hidden',
+          background: avatar?.bg || '#d4a574', flexShrink: 0,
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          fontFamily: T.serif, fontWeight: 600, fontSize: 14, color: '#fff',
+          backgroundImage: avatar?.url ? `url(${avatar.url})` : undefined,
+          backgroundSize: 'cover', backgroundPosition: 'center',
+        }}>{avatar?.url ? '' : name[0]}</div>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={{ fontSize: 14, fontWeight: 600, color: '#000', display: 'flex', alignItems: 'center', gap: 4 }}>
+            {handle}
+            {isVerified && (
+              <svg width="12" height="12" viewBox="0 0 16 16">
+                <path d="M8 0l1.8 1.4 2.3-.3 0.9 2.1 2.1.9-.3 2.3L16 8l-1.4 1.8.3 2.3-2.1.9-.9 2.1-2.3-.3L8 16l-1.8-1.4-2.3.3-.9-2.1-2.1-.9.3-2.3L0 8l1.4-1.8-.3-2.3 2.1-.9.9-2.1 2.3.3L8 0z" fill="#3897F0"/>
+                <path d="M6.5 10.5l-2-2 1-1 1 1 3.5-3.5 1 1-4.5 4.5z" fill="#fff"/>
+              </svg>
+            )}
+          </div>
+          <div style={{ fontSize: 11, color: 'rgba(0,0,0,0.5)' }}>{handle}</div>
+        </div>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M5 4h3l2 5-2.5 1.5a11 11 0 005 5L14 13l5 2v3a2 2 0 01-2 2A14 14 0 013 6a2 2 0 012-2z" stroke="#000" strokeWidth="1.7" strokeLinejoin="round"/></svg>
+        <svg width="24" height="20" viewBox="0 0 24 20" fill="none"><rect x="1" y="3" width="16" height="14" rx="3" stroke="#000" strokeWidth="1.7"/><path d="M17 8l5-2v8l-5-2v-4z" stroke="#000" strokeWidth="1.7" strokeLinejoin="round"/></svg>
+      </div>
+
+      {/* Messages */}
+      <div style={{
+        padding: '20px 12px', display: 'flex', flexDirection: 'column', gap: 6,
+        flex: 1, overflow: 'hidden', height: 'calc(100% - 134px)',
+      }}>
+        <div style={{ textAlign: 'center', fontSize: 11, color: 'rgba(0,0,0,0.5)', fontWeight: 600, margin: '4px 0 12px' }}>{time}</div>
+        {messages.map((m, i) => (
+          <div key={i} style={{
+            display: 'flex', alignItems: 'flex-end', gap: 6,
+            justifyContent: m.from === 'them' ? 'flex-start' : 'flex-end', marginBottom: 2,
+          }}>
+            {m.from === 'them' && (
+              <div style={{
+                width: 24, height: 24, borderRadius: '50%',
+                background: avatar?.bg || '#d4a574', flexShrink: 0,
+                backgroundImage: avatar?.url ? `url(${avatar.url})` : undefined,
+                backgroundSize: 'cover', backgroundPosition: 'center',
+                opacity: m.tail ? 1 : 0,
+              }}/>
+            )}
+            <div style={{
+              maxWidth: '78%', padding: '9px 14px', borderRadius: 22,
+              background: m.from === 'them' ? '#F0F0F0' : '#3897F0',
+              color: m.from === 'them' ? '#000' : '#fff',
+              fontSize: 14, lineHeight: 1.35,
+              fontFamily: '-apple-system, "SF Pro Text", system-ui',
+              wordBreak: 'break-word',
+            }}>{m.text}</div>
+          </div>
+        ))}
+      </div>
+
+      {/* Input bar */}
+      <div style={{
+        position: 'absolute', bottom: 0, left: 0, right: 0,
+        padding: '8px 12px 18px', background: '#fff',
+        borderTop: '0.5px solid rgba(0,0,0,0.08)',
+        display: 'flex', alignItems: 'center', gap: 10,
+      }}>
+        <div style={{ width: 30, height: 30, borderRadius: '50%', background: '#3897F0', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><circle cx="12" cy="12" r="9" stroke="#fff" strokeWidth="2" fill="none"/><circle cx="12" cy="12" r="3" fill="#fff"/></svg>
+        </div>
+        <div style={{ flex: 1, padding: '8px 14px', borderRadius: 999, border: '1px solid rgba(0,0,0,0.12)', fontSize: 13, color: 'rgba(0,0,0,0.4)' }}>Message...</div>
+        <div style={{ fontSize: 22, lineHeight: 1, color: 'rgba(0,0,0,0.7)' }}>🎤</div>
+        <div style={{ fontSize: 22, lineHeight: 1, color: 'rgba(0,0,0,0.7)' }}>🖼️</div>
+      </div>
+
+      {/* Home indicator */}
+      <div style={{
+        position: 'absolute', bottom: 4, left: '50%', transform: 'translateX(-50%)',
+        width: 100, height: 4, borderRadius: 100, background: 'rgba(0,0,0,0.35)',
+      }}/>
+    </div>
+  );
+}
+
+function TestimonialsSection() {
+  const testimonials = [
+    {
+      handle: 'linda.st', time: '7:36 PM',
+      avatar: { url: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=80' },
+      messages: [
+        { from: 'them', text: 'Best price! Thanks for an affordable product 💚', tail: true },
+        { from: 'them', text: 'My mom in Krakow gets her call every morning and I finally sleep through the night', tail: true },
+      ],
+    },
+    {
+      handle: 'marcus.j.parker', time: 'Mon 9:12 AM',
+      avatar: { url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80' },
+      messages: [
+        { from: 'them', text: 'real talk — this saved my dad', tail: true },
+        { from: 'them', text: 'he didn’t pick up tuesday. you guys called me before i even got out of bed. found him fine, just slept through the alarm', tail: true },
+        { from: 'them', text: 'but i would’ve found out three days later otherwise. thank you 🙏', tail: true },
+      ],
+    },
+    {
+      handle: 'priya.writes', time: 'Thu 6:48 AM',
+      avatar: { url: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80' },
+      messages: [
+        { from: 'them', text: 'I was paying a service $90/mo for the same thing. Switched last week. No regrets.', tail: true },
+        { from: 'them', text: 'Mom doesn’t even know it’s automated, she just thinks Dzvin is a friend who calls 😅', tail: true },
+      ],
+    },
+    {
+      handle: 'theresa.m.collins', time: 'Fri 11:22 PM',
+      avatar: { url: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&q=80' },
+      messages: [
+        { from: 'them', text: 'Tried four other options before this one. Setup was actually 2 minutes ❤️', tail: true },
+        { from: 'them', text: 'My brother and I split the cost — works out to $5 each', tail: true },
+        { from: 'them', text: 'Highly recommend for anyone with a parent living alone', tail: true },
+      ],
+    },
+    {
+      handle: 'samira.k.designs', time: 'Yesterday',
+      avatar: { url: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&q=80' },
+      messages: [
+        { from: 'them', text: 'okay i was skeptical. mom’s 82 and refuses any tech', tail: true },
+        { from: 'them', text: 'she ANSWERS this. every single morning at 8:30. doesn’t answer me 😂', tail: true },
+        { from: 'them', text: 'I get the green check at 8:31 and my day starts right', tail: true },
+      ],
+    },
+  ];
+
+  return (
+    <section id="stories" className="section-pad" style={{
+      background: T.cream, padding: '110px 6vw 120px',
+      position: 'relative', overflow: 'hidden',
+    }}>
+      <div style={{ maxWidth: 1300, margin: '0 auto' }}>
+        <div style={{ textAlign: 'center', marginBottom: 36 }}>
+          <Eyebrow style={{ marginBottom: 12 }}>Family stories</Eyebrow>
+          <h2 style={{
+            fontFamily: T.serif, fontSize: 'clamp(28px, 4.5vw, 56px)',
+            fontWeight: 600, color: T.ink, lineHeight: 1.08,
+            letterSpacing: -0.4, margin: 0, textWrap: 'balance',
+          }}>What families tell us.</h2>
+          <p style={{ fontFamily: T.sans, fontSize: 16, color: T.body, margin: '14px auto 0', maxWidth: 540 }}>
+            Real Instagram messages from real customers. No paid reviews, no edits, just permission.
+          </p>
+        </div>
+
+        <div style={{
+          display: 'flex', gap: 20, overflowX: 'auto', padding: '12px 0 32px',
+          scrollSnapType: 'x mandatory',
+          margin: '0 -22px', paddingLeft: 22, paddingRight: 22,
+        }} className="ig-row">
+          {testimonials.map((t, i) => (
+            <div key={i} style={{ flexShrink: 0, scrollSnapAlign: 'center' }}>
+              <IGScreenshot {...t}/>
+            </div>
+          ))}
+        </div>
+
+        <div className="quote-grid" style={{
+          marginTop: 32, display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 14,
+        }}>
+          {[
+            { q: 'I finally sleep through the night.', a: 'Linda S. · Brooklyn, NY' },
+            { q: 'It would have taken me three days to notice.', a: 'Marcus P. · Toronto, ON' },
+            { q: 'My mom thinks Dzvin is a friend.', a: 'Priya R. · Manchester, UK' },
+          ].map((t, i) => (
+            <div key={i} style={{
+              padding: 22, borderRadius: 18, background: '#fff',
+              border: `1px solid ${T.hairline}`,
+            }}>
+              <div style={{
+                fontFamily: T.serif, fontSize: 19, lineHeight: 1.3, color: T.ink,
+                fontStyle: 'italic', letterSpacing: -0.1,
+              }}>&ldquo;{t.q}&rdquo;</div>
+              <div style={{
+                fontFamily: T.sans, fontSize: 11, fontWeight: 700,
+                color: T.muted, letterSpacing: 1.2, textTransform: 'uppercase', marginTop: 12,
+              }}>{t.a}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ════════════════════════════════════════════════════════════════
+// FAQ
+// ════════════════════════════════════════════════════════════════
+
+function FAQSection() {
+  const faqs = [
+    {
+      q: 'Does my parent need a smartphone or app?',
+      a: 'No. Dzvin works with any phone — landline, flip phone, or smartphone. They just answer the call like any other call. There is nothing to install, set up, or learn.',
+    },
+    {
+      q: 'How quickly will I hear if they don’t answer?',
+      a: 'Within 60 seconds of the final retry. You can configure 1–3 retry attempts at intervals you choose (default: 2 retries, 10 minutes apart). The first alert always goes to you.',
+    },
+    {
+      q: 'Can I add multiple parents or relatives?',
+      a: 'Yes. The Family plan supports up to 4 people and 5 trusted contacts. Each can have their own schedule, retry rules, and notification preferences.',
+    },
+    {
+      q: 'What if my mom is traveling or has a doctor’s appointment?',
+      a: 'Pause check-ins for a day, a week, or a custom date range — straight from your dashboard. No phone calls to support, no penalty, no fuss.',
+    },
+    {
+      q: 'Is this a real human calling, or a robot?',
+      a: 'A natural, warm voice that asks one simple question. We’ve tuned the voice and script with seniors to feel like a friend checking in — not a survey or a sales call.',
+    },
+    {
+      q: 'How does the 14-day free trial work?',
+      a: 'Start instantly with a credit card. No charge for 14 days, and we email you 3 days before the trial ends. Cancel any time from your dashboard — no calls, no friction.',
+    },
+  ];
+  return (
+    <section id="faq" className="section-pad" style={{ background: '#fff', padding: '110px 6vw' }}>
+      <div style={{
+        maxWidth: 980, margin: '0 auto',
+        display: 'grid', gridTemplateColumns: '1fr 1.4fr', gap: 'clamp(28px, 5vw, 80px)',
+      }} className="faq-grid">
+        <div>
+          <Eyebrow style={{ marginBottom: 12 }}>Questions</Eyebrow>
+          <h2 style={{
+            fontFamily: T.serif, fontSize: 'clamp(24px, 3.6vw, 44px)',
+            fontWeight: 600, color: T.ink, lineHeight: 1.1,
+            letterSpacing: -0.3, margin: 0, marginBottom: 16, textWrap: 'balance',
+          }}>The things families ask us before signing up.</h2>
+          <Body>Still on the fence? <span style={{ color: T.tealDeep, fontWeight: 700 }}>Chat with a real human</span> &mdash; we&rsquo;re happy to walk you through it.</Body>
+        </div>
+        <div>
+          {faqs.map((f, i) => (
+            <details key={i} style={{ borderBottom: `1px solid ${T.hairline}`, padding: '20px 0' }}>
+              <summary style={{
+                fontFamily: T.serif, fontWeight: 600, fontSize: 19, color: T.ink,
+                cursor: 'pointer', listStyle: 'none',
+                display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 16,
+              }}>
+                <span style={{ textWrap: 'balance' }}>{f.q}</span>
+                <span style={{
+                  width: 26, height: 26, borderRadius: '50%',
+                  background: T.tealSoft, color: T.tealDeep,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  flexShrink: 0, fontSize: 14, fontWeight: 700,
+                }}>+</span>
+              </summary>
+              <div style={{
+                paddingTop: 12, fontFamily: T.sans, fontSize: 15,
+                color: T.body, lineHeight: 1.55,
+              }}>{f.a}</div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ════════════════════════════════════════════════════════════════
+// FINAL CTA + FOOTER
+// ════════════════════════════════════════════════════════════════
+
+function FinalCTA() {
+  return (
+    <section className="final-cta" style={{
+      background: T.teal, color: '#fff', padding: '90px 6vw 100px',
+      position: 'relative', overflow: 'hidden',
+    }}>
+      <div style={{ position: 'absolute', top: -100, right: -100, width: 360, height: 360, borderRadius: '50%', background: 'rgba(255,255,255,0.07)' }}/>
+      <div style={{ position: 'absolute', bottom: -80, left: '50%', width: 280, height: 280, borderRadius: '50%', background: 'rgba(255,255,255,0.05)' }}/>
+      <div style={{ maxWidth: 900, margin: '0 auto', textAlign: 'center', position: 'relative' }}>
+        <Eyebrow color="rgba(255,255,255,0.85)" style={{ marginBottom: 14, fontSize: 11 }}>Start tomorrow morning</Eyebrow>
+        <h2 style={{
+          fontFamily: T.serif, fontSize: 'clamp(28px, 4.5vw, 56px)',
+          fontWeight: 600, color: '#fff', lineHeight: 1.08,
+          letterSpacing: -0.4, margin: 0, textWrap: 'balance',
+        }}>
+          Two minutes of setup. A lifetime of mornings without that knot in your stomach.
+        </h2>
+        <p style={{
+          fontFamily: T.sans, fontSize: 16, color: 'rgba(255,255,255,0.85)',
+          marginTop: 16, maxWidth: 560, marginLeft: 'auto', marginRight: 'auto',
+        }}>
+          14-day free trial. No credit card needed to start. Cancel anytime.
+        </p>
+        <div className="hero-cta" style={{
+          display: 'flex', gap: 10, justifyContent: 'center', marginTop: 28, flexWrap: 'wrap',
+        }}>
+          <Btn variant="dark" size="lg" style={{ minWidth: 240, background: T.ink }}>Start free trial</Btn>
+          <Btn variant="outline" size="lg" style={{ minWidth: 200 }}>Talk to us first</Btn>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Footer() {
+  const cols = [
+    { title: 'Product', links: ['How it works', 'Features', 'Pricing', 'Family plan', 'Gift a year'] },
+    { title: 'Resources', links: ['Stories', 'Caregiver guide', 'For doctors', 'For agencies', 'Press kit'] },
+    { title: 'Company', links: ['About', 'Our promise', 'Careers', 'Contact', 'Privacy', 'Terms'] },
+  ];
+  return (
+    <footer style={{ background: T.ink, color: 'rgba(255,255,255,0.7)', padding: '70px 6vw 36px' }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+        <div className="footer-grid" style={{
+          display: 'grid', gridTemplateColumns: '1.4fr 1fr 1fr 1fr',
+          gap: 'clamp(24px, 4vw, 64px)', marginBottom: 48,
+        }}>
+          <div>
+            <DzvinLogo color="#fff" size={26}/>
+            <p style={{
+              fontFamily: T.sans, fontSize: 15, color: 'rgba(255,255,255,0.65)',
+              maxWidth: 320, marginTop: 22, lineHeight: 1.55,
+            }}>
+              Peace of mind for families. A daily safety call to your loved one, and an instant alert the moment something feels off.
+            </p>
+            <div style={{ display: 'flex', gap: 10, marginTop: 22 }}>
+              {['IG', 'FB', 'YT', 'X'].map(s => (
+                <div key={s} style={{
+                  width: 36, height: 36, borderRadius: 10,
+                  background: 'rgba(255,255,255,0.06)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontFamily: T.sans, fontSize: 11, fontWeight: 800, letterSpacing: 0.5,
+                  color: 'rgba(255,255,255,0.7)',
+                }}>{s}</div>
+              ))}
+            </div>
+          </div>
+          {cols.map((c, i) => (
+            <div key={i}>
+              <div style={{
+                fontFamily: T.sans, fontSize: 11, fontWeight: 800, letterSpacing: 1.6,
+                color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase', marginBottom: 18,
+              }}>{c.title}</div>
+              <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 11 }}>
+                {c.links.map(l => (
+                  <li key={l} style={{ fontFamily: T.sans, fontSize: 14, color: 'rgba(255,255,255,0.75)', cursor: 'pointer' }}>{l}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+        <div style={{
+          paddingTop: 28, borderTop: '1px solid rgba(255,255,255,0.10)',
+          display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap',
+          gap: 18, fontFamily: T.sans, fontSize: 12, color: 'rgba(255,255,255,0.5)',
+        }}>
+          <div>© {new Date().getFullYear()} Dzvin Care, Inc. &nbsp;·&nbsp; Made with care in Brooklyn &amp; Kyiv.</div>
+          <div>Peace of mind for families.</div>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+// ════════════════════════════════════════════════════════════════
+// ROOT
+// ════════════════════════════════════════════════════════════════
+
+function Landing() {
+  return (
+    <div style={{ background: '#fff' }}>
+      <FloatingNav/>
+      <Hero/>
+      <TrustStrip/>
+      <ProblemSection/>
+      <HowItWorksSection/>
+      <FeaturesSection/>
+      <PricingSection/>
+      <TestimonialsSection/>
+      <FAQSection/>
+      <FinalCTA/>
+      <Footer/>
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<Landing/>);
+</script>
+</body>
+</html>
