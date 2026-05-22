@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WBDP7HGT');</script>
+<!-- End Google Tag Manager -->
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Dzvin — Daily safety check-in calls for elderly parents</title>
@@ -115,9 +122,13 @@
 <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
 </head>
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WBDP7HGT"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
   <div id="root"></div>
 
-<script type="text/babel">
+<script type="text/babel" data-presets="env,react">
 // ════════════════════════════════════════════════════════════════
 // TOKENS & SHARED ATOMS
 // ════════════════════════════════════════════════════════════════
@@ -186,7 +197,7 @@ function Body({ children, color = T.body, style = {} }) {
   );
 }
 
-function Btn({ children, variant = 'primary', size = 'md', icon, style = {}, onClick }) {
+function Btn({ children, variant = 'primary', size = 'md', icon, style = {}, onClick, className }) {
   const base = {
     display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
     gap: 8, fontFamily: T.sans, fontWeight: 700,
@@ -206,7 +217,7 @@ function Btn({ children, variant = 'primary', size = 'md', icon, style = {}, onC
     soft:    { background: T.tealSoft, color: T.tealDeep },
   };
   return (
-    <button onClick={onClick} style={{
+    <button onClick={onClick} className={className} style={{
       ...base, ...sizes[size], ...variants[variant], ...style,
     }}>
       {icon}
@@ -970,6 +981,8 @@ function HomeScreen() {
 function WaitlistModal({ onClose }) {
   const [email, setEmail] = React.useState('');
   const [submitted, setSubmitted] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState('');
 
   React.useEffect(() => {
     const onKey = (e) => { if (e.key === 'Escape') onClose(); };
@@ -981,9 +994,27 @@ function WaitlistModal({ onClose }) {
     };
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (email) setSubmitted(true);
+    if (!email) return;
+    setLoading(true);
+    setError('');
+    try {
+      const res = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || 'Something went wrong');
+      }
+      setSubmitted(true);
+    } catch (err) {
+      setError(err.message || 'Something went wrong. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -1058,6 +1089,7 @@ function WaitlistModal({ onClose }) {
                   placeholder="your@email.com"
                   value={email}
                   onChange={e => setEmail(e.target.value)}
+                  disabled={loading}
                   style={{
                     width: '100%', padding: '15px 18px',
                     borderRadius: 14, border: `1.5px solid ${T.hairline}`,
@@ -1065,20 +1097,29 @@ function WaitlistModal({ onClose }) {
                     background: T.cream, outline: 'none',
                     boxSizing: 'border-box',
                     transition: 'border-color .15s',
+                    opacity: loading ? 0.6 : 1,
                   }}
                   onFocus={e => e.target.style.borderColor = T.teal}
                   onBlur={e => e.target.style.borderColor = T.hairline}
                 />
               </div>
-              <button type="submit" style={{
+              {error && (
+                <p style={{
+                  fontFamily: T.sans, fontSize: 13, color: '#e05555',
+                  margin: '0 0 10px', lineHeight: 1.4,
+                }}>{error}</p>
+              )}
+              <button type="submit" disabled={loading} style={{
                 width: '100%', padding: '16px',
-                borderRadius: 999, border: 'none', cursor: 'pointer',
+                borderRadius: 999, border: 'none', cursor: loading ? 'default' : 'pointer',
                 background: T.teal, color: '#fff',
                 fontFamily: T.sans, fontWeight: 700, fontSize: 14,
                 letterSpacing: 1.2, textTransform: 'uppercase',
                 boxShadow: '0 4px 14px rgba(63,191,163,0.32)',
+                opacity: loading ? 0.7 : 1,
+                transition: 'opacity .15s',
               }}>
-                Notify me at launch
+                {loading ? 'Saving…' : 'Notify me at launch'}
               </button>
             </form>
 
@@ -1176,7 +1217,7 @@ function FloatingNav({ openModal }) {
           }}>{l}</a>
         ))}
       </div>
-      <Btn variant="primary" size="sm" style={{ minWidth: 110 }} onClick={openModal}>
+      <Btn variant="primary" size="sm" style={{ minWidth: 110 }} onClick={openModal} className="gtm-cta-waitlist">
         Sign Up
       </Btn>
     </nav>
@@ -1238,7 +1279,7 @@ function Hero({ openModal }) {
           A friendly phone call to your mom or dad every morning — and the second they don&rsquo;t answer, we tell you. No apps. No smartphones.
         </p>
         <div className="hero-cta" style={{ display: 'flex', gap: 10, marginTop: 30, flexWrap: 'wrap' }}>
-          <Btn variant="primary" size="lg" style={{ minWidth: 240 }} onClick={openModal}>
+          <Btn variant="primary" size="lg" style={{ minWidth: 240 }} onClick={openModal} className="gtm-cta-waitlist">
             Start 14-day free trial
           </Btn>
           <Btn variant="outline" size="lg" style={{ minWidth: 200 }} onClick={() => document.getElementById('how-it-works').scrollIntoView({ behavior: 'smooth' })}>
@@ -1250,7 +1291,7 @@ function Hero({ openModal }) {
           color: 'rgba(255,255,255,0.65)', lineHeight: 1.6,
         }}>
           No credit card · Cancel anytime<br/>
-          <span onClick={openModal} style={{ color: T.teal, fontWeight: 700, cursor: 'pointer' }}>Already have an account? Sign in</span>
+          <span onClick={openModal} className="gtm-cta-waitlist" style={{ color: T.teal, fontWeight: 700, cursor: 'pointer' }}>Already have an account? Sign in</span>
         </div>
       </div>
     </section>
@@ -1577,7 +1618,7 @@ function PricingCard({ name, price, features, cta, featured, openModal }) {
             <span style={{ fontFamily: T.sans, fontSize: 14, color: T.body, lineHeight: 1.4 }}>{f}</span>
           </div>
         ))}
-        <Btn variant={featured ? 'primary' : 'dark'} size="lg" style={{ width: '100%', marginTop: 22 }} onClick={openModal}>{cta}</Btn>
+        <Btn variant={featured ? 'primary' : 'dark'} size="lg" style={{ width: '100%', marginTop: 22 }} onClick={openModal} className="gtm-cta-waitlist">{cta}</Btn>
       </div>
     </div>
   );
@@ -1961,8 +2002,8 @@ function FinalCTA({ openModal }) {
         <div className="hero-cta" style={{
           display: 'flex', gap: 10, justifyContent: 'center', marginTop: 28, flexWrap: 'wrap',
         }}>
-          <Btn variant="dark" size="lg" style={{ minWidth: 240, background: T.ink }} onClick={openModal}>Start free trial</Btn>
-          <Btn variant="outline" size="lg" style={{ minWidth: 200 }} onClick={openModal}>Talk to us first</Btn>
+          <Btn variant="dark" size="lg" style={{ minWidth: 240, background: T.ink }} onClick={openModal} className="gtm-cta-waitlist">Start free trial</Btn>
+          <Btn variant="outline" size="lg" style={{ minWidth: 200 }} onClick={openModal} className="gtm-cta-waitlist">Talk to us first</Btn>
         </div>
       </div>
     </section>
